@@ -47,11 +47,12 @@ class dovecot (
     $sieve_dir                  = '~/sieve',
     # auth-sql.conf.ext
     $auth_sql_userdb_static     = undef,
+    $auth_master_separator      = '*'
 
 ) {
 
     $packages = undef
-    
+
     case $::operatingsystem {
     'RedHat', 'CentOS': { 
         $packages = 'dovecot'
