@@ -20,7 +20,7 @@ define dovecot::file (
         mode    => $mode,
         content => $content,
         source  => $source,
-        require => Package['dovecot'],
+        require => Package[$dovecot::packages],
         notify  => Service['dovecot'],
     }
 }

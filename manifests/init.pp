@@ -64,11 +64,11 @@ class dovecot (
     # All files in this scope are dovecot configuration files
     File {
         notify  => Service['dovecot'],
-        require => Package['dovecot'],
+        require => Package[$packages],
     }
 
     # Install plugins (sub-packages)
-    dovecot::plugin { $plugins: before => Package['dovecot'] }
+    dovecot::plugin { $plugins: before => Package[$packages] }
 
     # Main package and service it provides
     package { $packages: ensure => installed }
