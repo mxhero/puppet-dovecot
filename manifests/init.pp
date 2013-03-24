@@ -51,8 +51,6 @@ class dovecot (
 
 ) {
 
-    $packages = undef
-
     case $::operatingsystem {
     'RedHat', 'CentOS': { 
         $packages = 'dovecot'
