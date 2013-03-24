@@ -46,9 +46,21 @@ class dovecot (
     $sieve                      = '~/.dovecot.sieve',
     $sieve_dir                  = '~/sieve',
     # auth-sql.conf.ext
-    $auth_sql_userdb_static     = undef
+    $auth_sql_userdb_static     = undef,
 
 ) {
+
+    $packages = undef
+    
+    case $::operatingsystem {
+    'RedHat', 'CentOS': { 
+        $packages = 'dovecot'
+    } 
+    /^(Debian|Ubuntu)$/:{
+        $packages = ['dovecot-common','dovecot-imapd']
+    }
+    default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported") }
+}
 
     # All files in this scope are dovecot configuration files
     File {
@@ -60,7 +72,7 @@ class dovecot (
     dovecot::plugin { $plugins: before => Package['dovecot'] }
 
     # Main package and service it provides
-    package { 'dovecot': ensure => installed }
+    package { $packages: ensure => installed }
     service { 'dovecot':
         enable    => true,
         ensure    => running,
