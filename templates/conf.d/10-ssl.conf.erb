@@ -12,8 +12,10 @@ ssl = <%= ssl %>
 # dropping root privileges, so keep the key file unreadable by anyone but
 # root. Included doc/mkcert.sh can be used to easily generate self-signed
 # certificate, just make sure to update the domains in dovecot-openssl.cnf
+<% if @ssl =~ /yes/ -%>
 ssl_cert = <<%= ssl_cert %>
 ssl_key = <<%= ssl_key %>
+<% end -%>
 
 # If key file is password protected, give the password here. Alternatively
 # give it when starting dovecot with -p parameter. Since this file is often
