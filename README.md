@@ -11,8 +11,8 @@ This module relies heavily on the conf.d structure adopted by dovecot 2.x.
 * `dovecot::plugin` : Definition to install plugin sub-packages
 
 = Example Configuration
-
-`class { 'dovecot':
+<code>
+class { 'dovecot':
     plugins                    => [ 'mysql', 'pigeonhole' ],
     protocols                  => 'imap pop3 sieve',
     verbose_proctitle          => 'yes',
@@ -30,4 +30,5 @@ This module relies heavily on the conf.d structure adopted by dovecot 2.x.
 }
 dovecot::file { 'dovecot-sql.conf.ext':
     source => 'puppet:///modules/example/dovecot-sql.conf.ext',
-}`
+}
+</code>
