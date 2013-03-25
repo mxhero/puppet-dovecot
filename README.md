@@ -1,4 +1,5 @@
-dovecot
+mxHero Dovecot Puppet Module
+============================
 
 This module works under RedHat and CentOS 6+ and Ubuntu 12+
 
@@ -11,6 +12,7 @@ This module relies heavily on the conf.d structure adopted by dovecot 2.x.
 
 = Example Configuration
 
+`
     class { 'dovecot':
         plugins                    => [ 'mysql', 'pigeonhole' ],
         protocols                  => 'imap pop3 sieve',
@@ -31,3 +33,4 @@ This module relies heavily on the conf.d structure adopted by dovecot 2.x.
         source => 'puppet:///modules/example/dovecot-sql.conf.ext',
     }
 
+`
