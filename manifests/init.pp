@@ -47,7 +47,8 @@ class dovecot (
     $sieve_dir                  = '~/sieve',
     # auth-sql.conf.ext
     $auth_sql_userdb_static     = undef,
-    $auth_master_separator      = '*'
+    $auth_master_separator      = '*',
+    $mail_max_userip_connections = 512,
 
 ) {
 
