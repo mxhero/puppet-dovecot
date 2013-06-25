@@ -1,5 +1,5 @@
 name 'jproyo-dovecot'
-version '0.0.2'
+version '0.0.4'
 source 'https://github.com/mxhero/puppet-modules/tree/master/modules/dovecot'
 author 'Juan Pablo Royo'
 license 'Apache 2.0'

@@ -22,6 +22,7 @@ define dovecot::file (
         source  => $source,
         require => Package[$dovecot::packages],
         notify  => Service['dovecot'],
+        replace => true,
     }
 }
 
