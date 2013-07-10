@@ -28,7 +28,7 @@ Example Configuration
         hostname                   => 'mail.example.com',
         lda_mail_plugins           => '$mail_plugins sieve',
         auth_sql_userdb_static     => 'uid=vmail gid=vmail home=/home/vmail/%d/%n',
-	log_timestamp              => '"%Y-%m-%d %H:%M:%S "',
+        log_timestamp              => '"%Y-%m-%d %H:%M:%S "',
     }
 
     dovecot::file { 'dovecot-sql.conf.ext':
