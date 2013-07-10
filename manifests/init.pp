@@ -21,6 +21,7 @@ class dovecot (
     $auth_include               = [ 'system' ],
     # 10-logging.conf
     $log_path                   = undef,
+    $log_timestamp              = undef,
     $auth_verbose               = undef,
     $auth_debug                 = undef,
     $mail_debug                 = undef,

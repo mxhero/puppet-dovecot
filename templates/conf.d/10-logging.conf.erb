@@ -73,7 +73,9 @@ plugin {
 # Prefix for each line written to log file. % codes are in strftime(3)
 # format.
 #log_timestamp = "%b %d %H:%M:%S "
-
+<% if @log_timestamp -%>
+log_timestamp = <%= @log_timestamp %>
+<% end -%>
 # Space-separated list of elements we want to log. The elements which have
 # a non-empty variable value are joined together to form a comma-separated
 # string.
