@@ -19,7 +19,7 @@
 # Protocols we want to be serving.
 #protocols = imap pop3 lmtp
 <% if @protocols -%>
-protocols = <%= protocols %>
+protocols = <%= @protocols %>
 <% end -%>
 
 # A comma separated list of IPs or hosts where to listen in for connections. 
@@ -28,7 +28,7 @@ protocols = <%= protocols %>
 # edit conf.d/master.conf.
 #listen = *, ::
 <% if @listen -%>
-listen = <%= listen %>
+listen = <%= @listen %>
 <% end -%>
 
 # Base directory where to store runtime data.
@@ -37,7 +37,7 @@ listen = <%= listen %>
 # Greeting message for clients.
 #login_greeting = Dovecot ready.
 <% if @login_greeting -%>
-login_greeting = <%= login_greeting %>
+login_greeting = <%= @login_greeting %>
 <% end -%>
 
 # Space separated list of trusted network ranges. Connections from these
@@ -46,7 +46,7 @@ login_greeting = <%= login_greeting %>
 # these networks. Typically you'd specify your IMAP proxy servers here.
 #login_trusted_networks =
 <% if @login_trusted_networks -%>
-login_trusted_networks = <%= login_trusted_networks %>
+login_trusted_networks = <%= @login_trusted_networks %>
 <% end -%>
 
 # Sepace separated list of login access check sockets (e.g. tcpwrap)
@@ -57,7 +57,7 @@ login_trusted_networks = <%= login_trusted_networks %>
 # (eg. shared mailboxes or if same uid is used for multiple accounts).
 #verbose_proctitle = no
 <% if @verbose_proctitle -%>
-verbose_proctitle = <%= verbose_proctitle %>
+verbose_proctitle = <%= @verbose_proctitle %>
 <% end -%>
 
 # Should all processes be killed when Dovecot master process shuts down.
@@ -66,7 +66,7 @@ verbose_proctitle = <%= verbose_proctitle %>
 # a problem if the upgrade is e.g. because of a security fix).
 #shutdown_clients = yes
 <% if @shutdown_clients -%>
-shutdown_clients = <%= shutdown_clients %>
+shutdown_clients = <%= @shutdown_clients %>
 <% end -%>
 
 # If non-zero, run mail commands via this many connections to doveadm server,

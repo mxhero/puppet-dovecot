@@ -1,10 +1,10 @@
 #default_process_limit = 100
 <% if @default_process_limit -%>
-default_process_limit = <%= default_process_limit %>
+default_process_limit = <%= @default_process_limit %>
 <% end -%>
 #default_client_limit = 1000
 <% if @default_client_limit -%>
-default_client_limit = <%= default_client_limit %>
+default_client_limit = <%= @default_client_limit %>
 <% end -%>
 
 # Default VSZ (virtual memory size) limit for service processes. This is mainly
@@ -87,15 +87,15 @@ service auth {
   unix_listener auth-userdb {
     #mode = 0600
 <% if @auth_listener_userdb_mode -%>
-    mode = <%= auth_listener_userdb_mode %>
+    mode = <%= @auth_listener_userdb_mode %>
 <% end -%>
     #user = 
 <% if @auth_listener_userdb_user -%>
-    user = <%= auth_listener_userdb_user %>
+    user = <%= @auth_listener_userdb_user %>
 <% end -%>
     #group = 
 <% if @auth_listener_userdb_group -%>
-    group = <%= auth_listener_userdb_group %>
+    group = <%= @auth_listener_userdb_group %>
 <% end -%>
   }
 
@@ -103,7 +103,7 @@ service auth {
   #unix_listener /var/spool/postfix/private/auth {
   #  mode = 0666
   #}
-<% if auth_listener_postfix -%>
+<% if @auth_listener_postfix -%>
   unix_listener /var/spool/postfix/private/auth {
     mode = 0666
   }

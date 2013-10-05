@@ -8,7 +8,7 @@
 # connection is considered secure and plaintext authentication is allowed.
 #disable_plaintext_auth = yes
 <% if @disable_plaintext_auth -%>
-disable_plaintext_auth = <%= disable_plaintext_auth %>
+disable_plaintext_auth = <%= @disable_plaintext_auth %>
 <% end -%>
 
 # Authentication cache size (e.g. 10M). 0 means it's disabled. Note that
@@ -41,7 +41,7 @@ disable_plaintext_auth = <%= disable_plaintext_auth %>
 # set this value to empty.
 #auth_username_chars = abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890.-_@
 <% if @auth_username_chars -%>
-auth_username_chars = <%= auth_username_chars %>
+auth_username_chars = <%= @auth_username_chars %>
 <% end -%>
 
 # Username character translations before it's looked up from databases. The
@@ -60,7 +60,7 @@ auth_username_chars = <%= auth_username_chars %>
 # support for it), you can specify the separator character here. The format
 # is then <username><separator><master username>. UW-IMAP uses "*" as the
 # separator, so that could be a good choice.
-auth_master_user_separator = <%= auth_master_separator %>
+auth_master_user_separator = <%= @auth_master_separator %>
 
 # Username to use for users logging in with ANONYMOUS SASL mechanism
 #auth_anonymous_username = anonymous
@@ -100,7 +100,7 @@ auth_master_user_separator = <%= auth_master_separator %>
 #   plain login digest-md5 cram-md5 ntlm rpa apop anonymous gssapi otp skey
 #   gss-spnego
 # NOTE: See also disable_plaintext_auth setting.
-auth_mechanisms = <%= auth_mechanisms %>
+auth_mechanisms = <%= @auth_mechanisms %>
 
 ##
 ## Password and user databases
@@ -122,7 +122,7 @@ auth_mechanisms = <%= auth_mechanisms %>
 #!include auth-deny.conf.ext
 #!include auth-master.conf.ext
 
-<% auth_include.each do |auth| -%>
+<% @auth_include.each do |auth| -%>
 !include auth-<%= auth %>.conf.ext
 <% end -%>
 #!include auth-system.conf.ext
