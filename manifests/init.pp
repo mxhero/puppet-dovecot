@@ -58,7 +58,7 @@ class dovecot (
         $packages = 'dovecot'
     } 
     /^(Debian|Ubuntu)$/:{
-        $packages = ['dovecot-common','dovecot-imapd']
+        $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d']
     }
     default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported") }
 }
