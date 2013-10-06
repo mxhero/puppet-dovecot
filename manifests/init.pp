@@ -50,7 +50,8 @@ class dovecot (
     $auth_sql_userdb_static     = undef,
     $auth_master_separator      = '*',
     $mail_max_userip_connections = 512,
-    $first_valid_uid             = false
+    $first_valid_uid             = false,
+    $last_valid_uid              = false
 
 ) {
 
