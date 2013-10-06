@@ -168,6 +168,9 @@ mail_location = <%= @mail_location %>
 # Note that denying root logins is hardcoded to dovecot binary and can't
 # be done even if first_valid_uid is set to 0.
 #first_valid_uid = 500
+<%- if @first_valid_uid %>
+first_valid_uid = <%= @first_valid_uid %>
+<% end -%>
 #last_valid_uid = 0
 
 # Valid GID range for users, defaults to non-root/wheel. Users having
