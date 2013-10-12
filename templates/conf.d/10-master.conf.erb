@@ -62,6 +62,11 @@ service lmtp {
     #address =
     #port = 
   #}
+  <% if @lmtp_socket_path %>
+  unix_listener <%= @lmtp_socket_path %> {
+     #mode = 0666
+  }
+  <% end %>
 }
 
 service imap {
