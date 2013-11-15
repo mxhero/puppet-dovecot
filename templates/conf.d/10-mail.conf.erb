@@ -29,7 +29,7 @@
 #
 #mail_location = 
 <% if @mail_location -%>
-mail_location = <%= mail_location %>
+mail_location = <%= @mail_location %>
 <% end -%>
 
 # If you need to set multiple mailbox locations or want to change default
@@ -167,8 +167,16 @@ mail_location = <%= mail_location %>
 # to make sure that users can't log in as daemons or other system users.
 # Note that denying root logins is hardcoded to dovecot binary and can't
 # be done even if first_valid_uid is set to 0.
+<%- if @first_valid_uid %>
+first_valid_uid = <%= @first_valid_uid %>
+<% else %>
 #first_valid_uid = 500
+<% end -%>
+<%- if @last_valid_uid %>
+last_valid_uid = <%= @last_valid_uid %>
+<% else %>
 #last_valid_uid = 0
+<% end %>
 
 # Valid GID range for users, defaults to non-root/wheel. Users having
 # non-valid GID as primary group ID aren't allowed to log in. If user

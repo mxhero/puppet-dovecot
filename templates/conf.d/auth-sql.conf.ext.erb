@@ -19,7 +19,7 @@ passdb {
 userdb {
 <% if @auth_sql_userdb_static -%>
   driver = static
-  args = <%= auth_sql_userdb_static %>
+  args = <%= @auth_sql_userdb_static %>
 <% else -%>
   driver = sql
   args = /etc/dovecot/dovecot-sql.conf.ext

@@ -34,6 +34,7 @@ class dovecot (
     $auth_listener_userdb_user  = undef,
     $auth_listener_userdb_group = undef,
     $auth_listener_postfix      = false,
+    $lmtp_socket_path           = undef,
     # 10-ssl.conf
     $ssl                        = undef,
     $ssl_cert                   = '/etc/pki/dovecot/certs/dovecot.pem',
@@ -50,6 +51,8 @@ class dovecot (
     $auth_sql_userdb_static     = undef,
     $auth_master_separator      = '*',
     $mail_max_userip_connections = 512,
+    $first_valid_uid             = false,
+    $last_valid_uid              = false
 
 ) {
 
@@ -58,7 +61,7 @@ class dovecot (
         $packages = 'dovecot'
     } 
     /^(Debian|Ubuntu)$/:{
-        $packages = ['dovecot-common','dovecot-imapd']
+        $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
     }
     default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported") }
 }

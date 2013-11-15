@@ -6,7 +6,7 @@
 # /dev/stderr logs to stderr.
 #log_path = syslog
 <% if @log_path -%>
-log_path = <%= log_path %>
+log_path = <%= @log_path %>
 <% end -%>
 
 # Log file to use for informational messages. Defaults to log_path.
@@ -26,7 +26,7 @@ log_path = <%= log_path %>
 # Log unsuccessful authentication attempts and the reasons why they failed.
 #auth_verbose = no
 <% if @auth_verbose -%>
-auth_verbose = <%= auth_verbose %>
+auth_verbose = <%= @auth_verbose %>
 <% end -%>
 
 # In case of password mismatches, log the attempted password. Valid values are
@@ -38,7 +38,7 @@ auth_verbose = <%= auth_verbose %>
 # queries.
 #auth_debug = no
 <% if @auth_debug -%>
-auth_debug = <%= auth_debug %>
+auth_debug = <%= @auth_debug %>
 <% end -%>
 
 # In case of password mismatches, log the passwords and used scheme so the
@@ -49,7 +49,7 @@ auth_debug = <%= auth_debug %>
 # isn't finding your mails.
 #mail_debug = no
 <% if @mail_debug -%>
-mail_debug = <%= mail_debug %>
+mail_debug = <%= @mail_debug %>
 <% end -%>
 
 # Show protocol level SSL errors.

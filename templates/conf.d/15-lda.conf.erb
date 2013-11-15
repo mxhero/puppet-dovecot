@@ -6,14 +6,14 @@
 # Default is postmaster@<your domain>.
 #postmaster_address =
 <% if @postmaster_address -%>
-postmaster_address = <%= postmaster_address %>
+postmaster_address = <%= @postmaster_address %>
 <% end -%>
 
 # Hostname to use in various parts of sent mails, eg. in Message-Id.
 # Default is the system's real hostname.
 #hostname = 
 <% if @hostname -%>
-hostname = <%= hostname %>
+hostname = <%= @hostname %>
 <% end -%>
 
 # If user is over quota, return with temporary failure instead of
@@ -49,6 +49,6 @@ protocol lda {
   # Space separated list of plugins to load (default is global mail_plugins).
   #mail_plugins = $mail_plugins
 <% if @lda_mail_plugins -%>
-  mail_plugins  = <%= lda_mail_plugins %>
+  mail_plugins  = <%= @lda_mail_plugins %>
 <% end -%>
 }
