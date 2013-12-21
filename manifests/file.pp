@@ -26,8 +26,10 @@ define dovecot::file (
         content => $content,
         source  => $source,
         require => Package[$dovecot::packages],
-        notify  => Service['dovecot'],
         replace => true,
+    }
+    if $dovecot::manage_service {
+      File["/etc/dovecot/${title}"] ~> Service['dovecot']
     }
 }
 
