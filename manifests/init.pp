@@ -44,6 +44,7 @@ class dovecot (
     $imap_login_vsz_limit       = undef,
     $pop3_login_service_count   = undef,
     $pop3_login_process_min_avail = undef,
+    $default_vsz_limit          = undef,
     $auth_listener_userdb_mode  = undef,
     $auth_listener_userdb_user  = undef,
     $auth_listener_userdb_group = undef,
