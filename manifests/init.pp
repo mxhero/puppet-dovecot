@@ -158,6 +158,9 @@ class dovecot (
     file { "${directory}/conf.d/10-auth.conf":
         content => template('dovecot/conf.d/10-auth.conf.erb'),
     }
+    file { "${directory}/conf.d/10-director.conf":
+        content => template('dovecot/conf.d/10-director.conf.erb'),
+    }
     file { "${directory}/conf.d/10-logging.conf":
         content => template('dovecot/conf.d/10-logging.conf.erb'),
     }
@@ -191,6 +194,5 @@ class dovecot (
     file { "${directory}/conf.d/auth-sql.conf.ext" :
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
     }
-
 }
 
