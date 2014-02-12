@@ -116,6 +116,9 @@ mail_location = <%= @mail_location %>
 # used only with INBOX when either its initial creation or dotlocking fails.
 # Typically this is set to "mail" to give access to /var/mail.
 #mail_privileged_group =
+<% if @mail_privileged_group -%>
+mail_privileged_group = <%= @mail_privileged_group %>
+<% end -%>
 
 # Grant access to these supplementary groups for mail processes. Typically
 # these are used to set up access to shared mailboxes. Note that it may be
@@ -216,6 +219,9 @@ last_valid_uid = <%= @last_valid_uid %>
 # Space separated list of plugins to load for all services. Plugins specific to
 # IMAP, LDA, etc. are added to this list in their own .conf files.
 #mail_plugins = 
+<% if @mail_plugins -%>
+mail_plugins = <%= @mail_plugins %>
+<% end -%>
 
 ##
 ## Mailbox handling optimizations

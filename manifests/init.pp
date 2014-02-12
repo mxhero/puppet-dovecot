@@ -27,13 +27,21 @@ class dovecot (
     $mail_debug                 = undef,
     # 10-mail.conf
     $mail_location              = undef,
+    $mail_privileged_group      = undef,
+    $mail_plugins               = undef,
     # 10-master.conf
     $default_process_limit      = undef,
     $default_client_limit       = undef,
+    $imap_login_process_limit   = undef,
+    $imap_login_client_limit    = undef,
     $auth_listener_userdb_mode  = undef,
     $auth_listener_userdb_user  = undef,
     $auth_listener_userdb_group = undef,
     $auth_listener_postfix      = false,
+    $auth_listener_postfix_mode = '0666',
+    $auth_listener_postfix_user = undef,
+    $auth_listener_postfix_group = undef,
+    $auth_listener_default_user = undef,
     $lmtp_socket_path           = undef,
     # 10-ssl.conf
     $ssl                        = undef,
@@ -44,11 +52,19 @@ class dovecot (
     $postmaster_address         = undef,
     $hostname                   = undef,
     $lda_mail_plugins           = undef,
+    # 20-imap.conf
+    $imap_mail_plugins          = undef,
+    # 20-pop3.conf
+    $pop3_mail_plugins          = undef,
+    $pop3_uidl_format           = undef,
     # 90-sieve.conf
     $sieve                      = '~/.dovecot.sieve',
     $sieve_dir                  = '~/sieve',
+    # 90-quota.conf
+    $quota                      = undef,
     # auth-sql.conf.ext
     $auth_sql_userdb_static     = undef,
+    $auth_sql_path              = '/etc/dovecot/dovecot-sql.conf.ext',
     $auth_master_separator      = '*',
     $mail_max_userip_connections = 512,
     $first_valid_uid             = false,
@@ -105,13 +121,22 @@ class dovecot (
     file { '/etc/dovecot/conf.d/10-ssl.conf':
         content => template('dovecot/conf.d/10-ssl.conf.erb'),
     }
+    file { '/etc/dovecot/conf.d/20-imap.conf':
+        content => template('dovecot/conf.d/20-imap.conf.erb'),
+    }
+    file { '/etc/dovecot/conf.d/20-pop3.conf':
+        content => template('dovecot/conf.d/20-pop3.conf.erb'),
+    }
     file { '/etc/dovecot/conf.d/15-lda.conf':
         content => template('dovecot/conf.d/15-lda.conf.erb'),
     }
     file { '/etc/dovecot/conf.d/90-sieve.conf':
         content => template('dovecot/conf.d/90-sieve.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/auth-sql.conf.ext':
+    file { '/etc/dovecot/conf.d/90-quota.conf':
+        content => template('dovecot/conf.d/90-quota.conf.erb'),
+    }
+    file { $auth_sql_path :
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
     }
 

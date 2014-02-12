@@ -21,6 +21,12 @@ default_client_limit = <%= @default_client_limit %>
 #default_internal_user = dovecot
 
 service imap-login {
+<% if @imap_login_client_limit -%>
+  client_limit = <%= @imap_login_client_limit %>
+<% end -%>
+<% if @imap_login_process_limit -%>
+  process_limit = <%= @imap_login_process_limit %>
+<% end -%>
   inet_listener imap {
     #port = 143
   }
@@ -110,12 +116,21 @@ service auth {
   #}
 <% if @auth_listener_postfix -%>
   unix_listener /var/spool/postfix/private/auth {
-    mode = 0666
+    mode = <%= @auth_listener_postfix_mode %>
+<% if @auth_listener_postfix_user -%>
+    user = <%= @auth_listener_postfix_user %>
+<% end -%>
+<% if @auth_listener_postfix_group -%>
+    group = <%= @auth_listener_postfix_group %>
+<% end -%>
   }
 <% end -%>
 
   # Auth process is run as this user.
   #user = $default_internal_user
+<% if @auth_listener_default_user -%>
+  user = <%= @auth_listener_default_user %>
+<% end -%>
 }
 
 service auth-worker {
