@@ -14,9 +14,9 @@ protocol imap {
 
   # Space separated list of plugins to load (default is global mail_plugins).
   #mail_plugins = $mail_plugins
-  <% if @imap_mail_plugins -%>
+<% if @imap_mail_plugins -%>
   mail_plugins = <%= @imap_mail_plugins %>
-  <% end -%>
+<% end -%>
 
   # IMAP logout format string:
   #  %i - total number of bytes read from client

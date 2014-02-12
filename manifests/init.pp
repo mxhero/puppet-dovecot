@@ -32,6 +32,8 @@ class dovecot (
     # 10-master.conf
     $default_process_limit      = undef,
     $default_client_limit       = undef,
+    $imap_login_process_limit   = undef,
+    $imap_login_client_limit    = undef,
     $auth_listener_userdb_mode  = undef,
     $auth_listener_userdb_user  = undef,
     $auth_listener_userdb_group = undef,
@@ -119,13 +121,22 @@ class dovecot (
     file { '/etc/dovecot/conf.d/10-ssl.conf':
         content => template('dovecot/conf.d/10-ssl.conf.erb'),
     }
+    file { '/etc/dovecot/conf.d/20-imap.conf':
+        content => template('dovecot/conf.d/20-imap.conf.erb'),
+    }
+    file { '/etc/dovecot/conf.d/20-pop3.conf':
+        content => template('dovecot/conf.d/20-pop3.conf.erb'),
+    }
     file { '/etc/dovecot/conf.d/15-lda.conf':
         content => template('dovecot/conf.d/15-lda.conf.erb'),
     }
     file { '/etc/dovecot/conf.d/90-sieve.conf':
         content => template('dovecot/conf.d/90-sieve.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/auth-sql.conf.ext':
+    file { '/etc/dovecot/conf.d/90-quota.conf':
+        content => template('dovecot/conf.d/90-quota.conf.erb'),
+    }
+    file { $auth_sql_path :
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
     }
 
