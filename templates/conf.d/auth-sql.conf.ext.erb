@@ -6,7 +6,7 @@ passdb {
   driver = sql
 
   # Path for SQL configuration file, see example-config/dovecot-sql.conf.ext
-  args = /etc/dovecot/dovecot-sql.conf.ext
+  args = <%= @auth_sql_path %>
 }
 
 # "prefetch" user database means that the passdb already provided the
@@ -22,7 +22,7 @@ userdb {
   args = <%= @auth_sql_userdb_static %>
 <% else -%>
   driver = sql
-  args = /etc/dovecot/dovecot-sql.conf.ext
+  args = <%= @auth_sql_path %>
 <% end -%>
 }
 

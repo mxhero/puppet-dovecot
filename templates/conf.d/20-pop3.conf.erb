@@ -49,6 +49,9 @@ protocol pop3 {
   # idea to change this. %08Xu%08Xv should be pretty fail-safe.
   #
   #pop3_uidl_format = %08Xu%08Xv
+  <% if @pop3_uidl_format -%>
+  mail_plugins = <%= @pop3_uidl_format %>
+  <% end -%>
 
   # Permanently save UIDLs sent to POP3 clients, so pop3_uidl_format changes
   # won't change those UIDLs. Currently this works only with Maildir.
@@ -73,6 +76,9 @@ protocol pop3 {
 
   # Space separated list of plugins to load (default is global mail_plugins).
   #mail_plugins = $mail_plugins
+  <% if @pop3_mail_plugins -%>
+  mail_plugins = <%= @pop3_mail_plugins %>
+  <% end -%>
 
   # Workarounds for various client bugs:
   #   outlook-no-nuls:

@@ -72,4 +72,7 @@ plugin {
   #quota2 = dict:domain:%d:proxy::quota_domain
   #quota_rule = *:storage=102400
   #quota2_rule = *:storage=1048576
+  <% if @quota -%>
+  quota = <%= @quota %>
+  <% end -%>
 }

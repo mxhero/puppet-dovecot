@@ -108,14 +108,23 @@ service auth {
   #unix_listener /var/spool/postfix/private/auth {
   #  mode = 0666
   #}
-<% if @auth_listener_postfix -%>
-  unix_listener /var/spool/postfix/private/auth {
-    mode = 0666
-  }
-<% end -%>
+  <% if @auth_listener_postfix -%>
+    unix_listener /var/spool/postfix/private/auth {
+      mode = <%= @auth_listener_postfix_mode %>
+      <% if @auth_listener_postfix_user -%>
+        user = <%= @auth_listener_postfix_user %>
+      <% end -%>
+      <% if @auth_listener_postfix_group -%>
+        group = <%= @auth_listener_postfix_group %>
+      <% end -%>
+    }
+  <% end -%>
 
   # Auth process is run as this user.
   #user = $default_internal_user
+  <% if @auth_listener_default_user -%>
+    user = <%= @auth_listener_default_user %>
+  <% end -%>
 }
 
 service auth-worker {
