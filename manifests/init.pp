@@ -136,7 +136,7 @@ class dovecot (
     file { '/etc/dovecot/conf.d/90-quota.conf':
         content => template('dovecot/conf.d/90-quota.conf.erb'),
     }
-    file { $auth_sql_path :
+    file { '/etc/dovecot/conf.d/auth-sql.conf.ext' :
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
     }
 
