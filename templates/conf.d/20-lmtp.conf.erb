@@ -9,8 +9,15 @@
 # the mail to the detail mailbox. See also recipient_delimiter and
 # lda_mailbox_autocreate settings.
 #lmtp_save_to_detail_mailbox = no
+<% if @lmtp_save_to_detail_mailbox -%>
+lmtp_save_to_detail_mailbox = <%= @lmtp_save_to_detail_mailbox %>
+<% end -%>
 
 protocol lmtp {
   # Space separated list of plugins to load (default is global mail_plugins).
   #mail_plugins = $mail_plugins
+<% if @lmtp_mail_plugins -%>
+  mail_plugins = <%= @lmtp_mail_plugins %>
+<% end -%>
+
 }

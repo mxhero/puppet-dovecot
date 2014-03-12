@@ -41,9 +41,15 @@ hostname = <%= @hostname %>
 
 # Should saving a mail to a nonexistent mailbox automatically create it?
 #lda_mailbox_autocreate = no
+<% if @lda_mailbox_autocreate -%>
+lda_mailbox_autocreate = <%= @lda_mailbox_autocreate %>
+<% end -%>
 
 # Should automatically created mailboxes be also automatically subscribed?
 #lda_mailbox_autosubscribe = no
+<% if @lda_mailbox_autosubscribe -%>
+lda_mailbox_autosubscribe = <%= @lda_mailbox_autosubscribe %>
+<% end -%>
 
 protocol lda {
   # Space separated list of plugins to load (default is global mail_plugins).

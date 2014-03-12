@@ -26,9 +26,13 @@ class dovecot (
     $auth_debug                 = undef,
     $mail_debug                 = undef,
     # 10-mail.conf
+    $mail_fsync                 = undef,
     $mail_location              = undef,
+    $mail_nfs_index             = undef,
+    $mail_nfs_storage           = undef,
     $mail_privileged_group      = undef,
     $mail_plugins               = undef,
+    $mmap_disable               = undef,
     # 10-master.conf
     $default_process_limit      = undef,
     $default_client_limit       = undef,
@@ -42,7 +46,10 @@ class dovecot (
     $auth_listener_postfix_user = undef,
     $auth_listener_postfix_group = undef,
     $auth_listener_default_user = undef,
+    $lmtp_socket_group          = undef,
+    $lmtp_socket_mode           = undef,
     $lmtp_socket_path           = undef,
+    $lmtp_socket_user           = undef,
     # 10-ssl.conf
     $ssl                        = undef,
     $ssl_cert                   = '/etc/pki/dovecot/certs/dovecot.pem',
@@ -52,16 +59,31 @@ class dovecot (
     $postmaster_address         = undef,
     $hostname                   = undef,
     $lda_mail_plugins           = undef,
+    $lda_mailbox_autocreate     = undef,
+    $lda_mailbox_autosubscribe  = undef,
     # 20-imap.conf
     $imap_mail_plugins          = undef,
+    # 20-lmtp.conf
+    $lmtp_mail_plugins          = undef,
+    $lmtp_save_to_detail_mailbox = undef,
     # 20-pop3.conf
     $pop3_mail_plugins          = undef,
     $pop3_uidl_format           = undef,
     # 90-sieve.conf
     $sieve                      = '~/.dovecot.sieve',
+    $sieve_after                = undef,
+    $sieve_before               = undef,
     $sieve_dir                  = '~/sieve',
+    $sieve_max_actions          = undef,
+    $sieve_max_redirects        = undef,
+    $sieve_max_script_size      = undef,
+    $sieve_quota_max_scripts    = undef,
+    $sieve_quota_max_storage    = undef,
     # 90-quota.conf
     $quota                      = undef,
+    # auth-passwdfile.conf.ext
+    $auth_passwdfile_passdb     = undef,
+    $auth_passwdfile_userdb     = undef,
     # auth-sql.conf.ext
     $auth_sql_userdb_static     = undef,
     $auth_sql_path              = '/etc/dovecot/dovecot-sql.conf.ext',
@@ -135,6 +157,9 @@ class dovecot (
     }
     file { '/etc/dovecot/conf.d/90-quota.conf':
         content => template('dovecot/conf.d/90-quota.conf.erb'),
+    }
+    file { '/etc/dovecot/conf.d/auth-passwdfile.conf.ext' :
+        content => template('dovecot/conf.d/auth-passwdfile.conf.ext.erb'),
     }
     file { '/etc/dovecot/conf.d/auth-sql.conf.ext' :
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
