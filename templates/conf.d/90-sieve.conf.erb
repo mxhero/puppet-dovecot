@@ -44,20 +44,43 @@ plugin {
   # The maximum size of a Sieve script. The compiler will refuse to 
   # compile any script larger than this limit.
   #sieve_max_script_size = 1M
+  <% if @sieve_max_script_size -%>
+  sieve_max_script_size = <%= @sieve_max_script_size %>
+  <% end -%>
 
   # The maximum number of actions that can be performed during a single
   # script execution.
   #sieve_max_actions = 32
+  <% if @sieve_max_actions -%>
+  sieve_max_actions = <%= @sieve_max_actions %>
+  <% end -%>
 
   # The maximum number of redirect actions that can be performed during
   # a single script execution.
   #sieve_max_redirects = 4
+  <% if @sieve_max_redirects -%>
+  sieve_max_redirects = <%= @sieve_max_redirects %>
+  <% end -%>
 
   # The maximum number of personal Sieve scripts a single user can have.
   # (Currently only relevant for ManageSieve)
   #sieve_quota_max_scripts = 0
+  <% if @sieve_quota_max_scripts -%>
+  sieve_quota_max_scripts = <%= @sieve_quota_max_scripts %>
+  <% end -%>
 
   # The maximum amount of disk storage a single user's scripts may occupy.
   # (Currently only relevant for ManageSieve) 
   #sieve_quota_max_storage = 0
+  <% if @sieve_quota_max_storage-%>
+  sieve_quota_max_storage = <%= @sieve_quota_max_storage %>
+  <% end -%>
+
+  <% if @sieve_before -%>
+  sieve_before = <%= @sieve_before %>
+  <% end -%>
+
+  <% if @sieve_after -%>
+  sieve_after = <%= @sieve_after %>
+  <% end -%>
 }

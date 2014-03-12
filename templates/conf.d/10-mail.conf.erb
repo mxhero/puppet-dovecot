@@ -140,6 +140,9 @@ mail_privileged_group = <%= @mail_privileged_group %>
 # Don't use mmap() at all. This is required if you store indexes to shared
 # filesystems (NFS or clustered filesystem).
 #mmap_disable = no
+<% if @mmap_disable -%>
+mmap_disable = <%= @mmap_disable %>
+<% end -%>
 
 # Rely on O_EXCL to work when creating dotlock files. NFS supports O_EXCL
 # since version 3, so this should be safe to use nowadays by default.
@@ -150,13 +153,22 @@ mail_privileged_group = <%= @mail_privileged_group %>
 #   always: Useful with e.g. NFS when write()s are delayed
 #   never: Never use it (best performance, but crashes can lose data)
 #mail_fsync = optimized
+<% if @mail_fsync -%>
+mail_fsync = <%= @mail_fsync %>
+<% end -%>
 
 # Mail storage exists in NFS. Set this to yes to make Dovecot flush NFS caches
 # whenever needed. If you're using only a single mail server this isn't needed.
 #mail_nfs_storage = no
+<% if @mail_nfs_storage -%>
+mail_nfs_storage = <%= @mail_nfs_storage %>
+<% end -%>
 # Mail index files also exist in NFS. Setting this to yes requires
 # mmap_disable=yes and fsync_disable=no.
 #mail_nfs_index = no
+<% if @mail_nfs_index -%>
+mail_nfs_index = <%= @mail_nfs_index %>
+<% end -%>
 
 # Locking method for index files. Alternatives are fcntl, flock and dotlock.
 # Dotlocking uses some tricks which may create more disk I/O than other locking
