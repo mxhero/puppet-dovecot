@@ -147,6 +147,9 @@ mmap_disable = <%= @mmap_disable %>
 # Rely on O_EXCL to work when creating dotlock files. NFS supports O_EXCL
 # since version 3, so this should be safe to use nowadays by default.
 #dotlock_use_excl = yes
+<% if @dotlock_use_excl -%>
+dotlock_use_excl = <%= @dotlock_use_excl %>
+<% end -%>
 
 # When to use fsync() or fdatasync() calls:
 #   optimized (default): Whenever necessary to avoid losing important data

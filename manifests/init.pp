@@ -33,11 +33,15 @@ class dovecot (
     $mail_privileged_group      = undef,
     $mail_plugins               = undef,
     $mmap_disable               = undef,
+    $dotlock_use_excl           = undef, 
     # 10-master.conf
     $default_process_limit      = undef,
     $default_client_limit       = undef,
     $imap_login_process_limit   = undef,
     $imap_login_client_limit    = undef,
+    $imap_login_service_count   = undef,
+    $imap_login_process_min_avail = undef,
+    $imap_login_vsz_limit       = undef,
     $auth_listener_userdb_mode  = undef,
     $auth_listener_userdb_user  = undef,
     $auth_listener_userdb_group = undef,
@@ -63,12 +67,14 @@ class dovecot (
     $lda_mailbox_autosubscribe  = undef,
     # 20-imap.conf
     $imap_mail_plugins          = undef,
+    $imap_client_workarounds    = undef,
     # 20-lmtp.conf
     $lmtp_mail_plugins          = undef,
     $lmtp_save_to_detail_mailbox = undef,
     # 20-pop3.conf
     $pop3_mail_plugins          = undef,
     $pop3_uidl_format           = undef,
+    $pop3_client_workarounds    = undef,
     # 90-sieve.conf
     $sieve                      = '~/.dovecot.sieve',
     $sieve_after                = undef,
