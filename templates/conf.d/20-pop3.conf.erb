@@ -89,4 +89,7 @@ protocol pop3 {
   #     missing. This option simply sends it if it's missing.
   # The list is space-separated.
   #pop3_client_workarounds = 
+<% if @pop3_client_workarounds -%>
+  pop3_client_workarounds = <%= @pop3_client_workarounds %>
+<% end -%>
 }

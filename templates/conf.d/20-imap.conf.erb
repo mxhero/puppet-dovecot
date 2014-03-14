@@ -53,4 +53,7 @@ protocol imap {
   #     accept '/' suffix in mailbox names in subscriptions list.
   # The list is space-separated.
   #imap_client_workarounds = 
+<% if @imap_client_workarounds -%>
+  imap_client_workarounds = <%= @imap_client_workarounds %>
+<% end -%>
 }

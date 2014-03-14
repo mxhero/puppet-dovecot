@@ -39,12 +39,21 @@ service imap-login {
   # the only useful values are 0 (unlimited) or 1. 1 is more secure, but 0
   # is faster. <doc/wiki/LoginProcess.txt>
   #service_count = 1
+<% if not @imap_login_service_count.nil? -%>
+  service_count = <%= @imap_login_service_count %>
+<% end -%>
 
   # Number of processes to always keep waiting for more connections.
   #process_min_avail = 0
+<% if @imap_login_process_min_avail -%>
+  process_min_avail = <%= @imap_login_process_min_avail %>
+<% end -%>
 
   # If you set service_count=0, you probably need to grow this.
   #vsz_limit = 64M
+<% if @imap_login_vsz_limit -%>
+  vsz_limit = <%= @imap_login_vsz_limit %>
+<% end -%>
 }
 
 service pop3-login {
