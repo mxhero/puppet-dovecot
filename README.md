@@ -1,7 +1,7 @@
 mxHero Dovecot Puppet Module
 ============================
 
-This module works under RedHat and CentOS 6+ and Ubuntu 12+
+This module works under RedHat, CentOS 6+, Ubuntu 12+ and FreeBSD.
 
 Install, enable and configure the Dovecot IMAP server.
 This module relies heavily on the conf.d structure adopted by dovecot 2.x.
