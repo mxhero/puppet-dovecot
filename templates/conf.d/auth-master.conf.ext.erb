@@ -8,7 +8,7 @@
 passdb {
   driver = passwd-file
   master = yes
-  args = /etc/dovecot/master-users
+  args = <%= @directory %>/master-users
 
   # Unless you're using PAM, you probably still want the destination user to
   # be looked up from passdb that it really exists. pass=yes does that.

@@ -14,7 +14,12 @@ define dovecot::file (
     $content = undef,
     $source  = undef
 ) {
-    file { "/etc/dovecot/${title}":
+    case $::operatingsystem {
+      'FreeBSD': { $directory = '/usr/local/etc/dovecot' }
+      default:   { $directory = '/etc/dovecot' }
+    }
+
+    file { "${directory}/${title}":
         owner   => $owner,
         group   => $group,
         mode    => $mode,

@@ -8,7 +8,7 @@ passdb {
   <% if @auth_passwdfile_passdb -%>
   args = <%= @auth_passwdfile_passdb %>
   <% else %>
-  args = scheme=CRYPT username_format=%u /etc/dovecot/users
+  args = scheme=CRYPT username_format=%u <%= @directory %>/users
   <% end -%>
 }
 
@@ -17,6 +17,6 @@ userdb {
   <% if @auth_passwdfile_userdb -%>
   args = <%= @auth_passwdfile_userdb %>
   <% else %>
-  args = username_format=%u /etc/dovecot/users
+  args = username_format=%u <%= @directory %>/users
   <% end -%>
 }

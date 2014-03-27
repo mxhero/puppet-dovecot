@@ -6,7 +6,7 @@
 # Example Usage:
 #     class { 'dovecot': plugins => [ 'mysql', 'pigeonhole' ] }
 #
-define dovecot::plugin() {
-    package { "dovecot-${title}": ensure => installed }
+define dovecot::plugin( $prefix = 'dovecot' ) {
+    package { "${prefix}-${title}": ensure => installed }
 }
 

@@ -102,13 +102,22 @@ class dovecot (
 
     case $::operatingsystem {
     'RedHat', 'CentOS': { 
-        $packages = 'dovecot'
+        $directory = '/etc/dovecot'
+        $packages  = 'dovecot'
+        $prefix    = 'dovecot'
     } 
     /^(Debian|Ubuntu)$/:{
+        $directory = '/etc/dovecot'
         $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
+        $prefix    = 'dovecot'
+    }
+    'FreeBSD': {
+        $directory = '/usr/local/etc/dovecot'
+        $packages  = 'mail/dovecot2'
+        $prefix    = 'mail/dovecot2'
     }
     default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported") }
-}
+    }
 
     # All files in this scope are dovecot configuration files
     File {
@@ -117,7 +126,7 @@ class dovecot (
     }
 
     # Install plugins (sub-packages)
-    dovecot::plugin { $plugins: before => Package[$packages] }
+    dovecot::plugin { $plugins: before => Package[$packages], prefix => $prefix }
 
     # Main package and service it provides
     package { $packages: ensure => installed }
@@ -125,49 +134,57 @@ class dovecot (
         enable    => true,
         ensure    => running,
         hasstatus => true,
-        require   => File['/etc/dovecot/dovecot.conf'],
+        require   => File["${directory}/dovecot.conf"],
+    }
+
+    # Main configuration directory
+    file { "${directory}":
+        ensure => 'directory',
+    }
+    file { "${directory}/conf.d":
+        ensure => 'directory',
     }
 
     # Main configuration file
-    file { '/etc/dovecot/dovecot.conf':
+    file { "${directory}/dovecot.conf":
         content => template('dovecot/dovecot.conf.erb'),
     }
 
     # Configuration file snippets which we modify
-    file { '/etc/dovecot/conf.d/10-auth.conf':
+    file { "${directory}/conf.d/10-auth.conf":
         content => template('dovecot/conf.d/10-auth.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/10-logging.conf':
+    file { "${directory}/conf.d/10-logging.conf":
         content => template('dovecot/conf.d/10-logging.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/10-mail.conf':
+    file { "${directory}/conf.d/10-mail.conf":
         content => template('dovecot/conf.d/10-mail.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/10-master.conf':
+    file { "${directory}/conf.d/10-master.conf":
         content => template('dovecot/conf.d/10-master.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/10-ssl.conf':
+    file { "${directory}/conf.d/10-ssl.conf":
         content => template('dovecot/conf.d/10-ssl.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/20-imap.conf':
+    file { "${directory}/conf.d/20-imap.conf":
         content => template('dovecot/conf.d/20-imap.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/20-pop3.conf':
+    file { "${directory}/conf.d/20-pop3.conf":
         content => template('dovecot/conf.d/20-pop3.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/15-lda.conf':
+    file { "${directory}/conf.d/15-lda.conf":
         content => template('dovecot/conf.d/15-lda.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/90-sieve.conf':
+    file { "${directory}/conf.d/90-sieve.conf":
         content => template('dovecot/conf.d/90-sieve.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/90-quota.conf':
+    file { "${directory}/conf.d/90-quota.conf":
         content => template('dovecot/conf.d/90-quota.conf.erb'),
     }
-    file { '/etc/dovecot/conf.d/auth-passwdfile.conf.ext' :
+    file { "${directory}/conf.d/auth-passwdfile.conf.ext" :
         content => template('dovecot/conf.d/auth-passwdfile.conf.ext.erb'),
     }
-    file { '/etc/dovecot/conf.d/auth-sql.conf.ext' :
+    file { "${directory}/conf.d/auth-sql.conf.ext" :
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
     }
 

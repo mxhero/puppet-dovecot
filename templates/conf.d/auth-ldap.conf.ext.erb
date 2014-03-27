@@ -6,7 +6,7 @@ passdb {
   driver = ldap
 
   # Path for LDAP configuration file, see example-config/dovecot-ldap.conf.ext
-  args = /etc/dovecot/dovecot-ldap.conf.ext
+  args = <%= @directory %>/dovecot-ldap.conf.ext
 }
 
 # "prefetch" user database means that the passdb already provided the
@@ -18,7 +18,7 @@ passdb {
 
 userdb {
   driver = ldap
-  args = /etc/dovecot/dovecot-ldap.conf.ext
+  args = <%= @directory %>/dovecot-ldap.conf.ext
 }
 
 # If you don't have any user-specific settings, you can avoid the userdb LDAP
