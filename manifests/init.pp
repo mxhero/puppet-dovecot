@@ -63,6 +63,7 @@ class dovecot (
     $postmaster_address         = undef,
     $hostname                   = undef,
     $lda_mail_plugins           = undef,
+    $lda_mail_location          = undef,
     $lda_mailbox_autocreate     = undef,
     $lda_mailbox_autosubscribe  = undef,
     # 20-imap.conf
