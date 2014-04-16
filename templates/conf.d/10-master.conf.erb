@@ -64,6 +64,12 @@ service pop3-login {
     #port = 995
     #ssl = yes
   }
+<% if not @pop3_login_service_count.nil? -%>
+  service_count = <%= @pop3_login_service_count %>
+<% end -%>
+<% if @pop3_login_process_min_avail -%>
+  process_min_avail = <%= @pop3_login_process_min_avail %>
+<% end -%>
 }
 
 service lmtp {
