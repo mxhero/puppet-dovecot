@@ -57,4 +57,7 @@ protocol lda {
 <% if @lda_mail_plugins -%>
   mail_plugins  = <%= @lda_mail_plugins %>
 <% end -%>
+<% if @lda_mail_location -%>
+  mail_location = <%= @lda_mail_location %>
+<% end -%>
 }

@@ -42,6 +42,8 @@ class dovecot (
     $imap_login_service_count   = undef,
     $imap_login_process_min_avail = undef,
     $imap_login_vsz_limit       = undef,
+    $pop3_login_service_count   = undef,
+    $pop3_login_process_min_avail = undef,
     $auth_listener_userdb_mode  = undef,
     $auth_listener_userdb_user  = undef,
     $auth_listener_userdb_group = undef,
@@ -63,6 +65,7 @@ class dovecot (
     $postmaster_address         = undef,
     $hostname                   = undef,
     $lda_mail_plugins           = undef,
+    $lda_mail_location          = undef,
     $lda_mailbox_autocreate     = undef,
     $lda_mailbox_autosubscribe  = undef,
     # 20-imap.conf
