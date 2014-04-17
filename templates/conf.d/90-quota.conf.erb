@@ -31,6 +31,17 @@ plugin {
 # Note that % needs to be escaped as %%, otherwise "% " expands to empty.
 
 plugin {
+<% if @quota_warnings.is_a?(Array) and @quota_warnings.count > 0 -%>
+<% @quota_warnings.each_with_index do |warning, index| -%>
+<% if index > 0 -%>
+<% warnnum = index.to_i  -%>
+<% warnnum += 1 -%>
+  quota_warning<%= warnnum %> = <%= warning %>
+<% else -%>
+  quota_warning = <%= warning %>
+<% end -%>
+<% end -%>
+<% end -%>
   #quota_warning = storage=95%% quota-warning 95 %u
   #quota_warning2 = storage=80%% quota-warning 80 %u
 }

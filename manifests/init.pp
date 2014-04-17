@@ -90,6 +90,7 @@ class dovecot (
     $sieve_quota_max_storage    = undef,
     # 90-quota.conf
     $quota                      = undef,
+    $quota_warnings             = [],
     # auth-passwdfile.conf.ext
     $auth_passwdfile_passdb     = undef,
     $auth_passwdfile_userdb     = undef,
