@@ -33,7 +33,8 @@ class dovecot (
     $mail_privileged_group      = undef,
     $mail_plugins               = undef,
     $mmap_disable               = undef,
-    $dotlock_use_excl           = undef, 
+    $dotlock_use_excl           = undef,
+    $include_inbox_namespace	= undef,
     # 10-master.conf
     $default_process_limit      = undef,
     $default_client_limit       = undef,
