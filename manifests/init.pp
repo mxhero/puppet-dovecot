@@ -33,7 +33,7 @@ class dovecot (
     $mail_privileged_group      = undef,
     $mail_plugins               = undef,
     $mmap_disable               = undef,
-    $dotlock_use_excl           = undef, 
+    $dotlock_use_excl           = undef,
     # 10-master.conf
     $default_process_limit      = undef,
     $default_client_limit       = undef,
@@ -105,11 +105,11 @@ class dovecot (
 ) {
 
     case $::operatingsystem {
-    'RedHat', 'CentOS': { 
+    'RedHat', 'CentOS': {
         $directory = '/etc/dovecot'
         $packages  = 'dovecot'
         $prefix    = 'dovecot'
-    } 
+    }
     /^(Debian|Ubuntu)$/:{
         $directory = '/etc/dovecot'
         $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
@@ -120,7 +120,7 @@ class dovecot (
         $packages  = 'mail/dovecot2'
         $prefix    = 'mail/dovecot2'
     }
-    default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported") }
+    default: { fail("OS ${::operatingsystem} and version ${::operatingsystemrelease} is not supported") }
     }
 
     # All files in this scope are dovecot configuration files
@@ -135,14 +135,14 @@ class dovecot (
     # Main package and service it provides
     package { $packages: ensure => installed }
     service { 'dovecot':
-        enable    => true,
         ensure    => running,
+        enable    => true,
         hasstatus => true,
         require   => File["${directory}/dovecot.conf"],
     }
 
     # Main configuration directory
-    file { "${directory}":
+    file { $directory:
         ensure => 'directory',
     }
     file { "${directory}/conf.d":
