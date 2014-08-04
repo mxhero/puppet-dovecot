@@ -8,26 +8,27 @@
 #     }
 #
 define dovecot::file (
-    $owner   = 'root',
-    $group   = 'root',
-    $mode    = '0644',
-    $content = undef,
-    $source  = undef
+  $content = undef,
+  $group   = 'root',
+  $mode    = '0644',
+  $owner   = 'root',
+  $source  = undef
 ) {
-    case $::operatingsystem {
-      'FreeBSD': { $directory = '/usr/local/etc/dovecot' }
-      default:   { $directory = '/etc/dovecot' }
-    }
+  case $::operatingsystem {
+    'FreeBSD': { $directory = '/usr/local/etc/dovecot' }
+    default:   { $directory = '/etc/dovecot' }
+  }
 
-    file { "${directory}/${title}":
-        owner   => $owner,
-        group   => $group,
-        mode    => $mode,
-        content => $content,
-        source  => $source,
-        require => Package[$dovecot::packages],
-        notify  => Service['dovecot'],
-        replace => true,
-    }
+  file { "${directory}/${title}":
+    ensure  => file,
+    content => $content,
+    group   => $group,
+    mode    => $mode,
+    notify  => Service['dovecot'],
+    owner   => $owner,
+    replace => true,
+    require => Package[$dovecot::packages],
+    source  => $source,
+  }
 }
 
