@@ -113,9 +113,9 @@ class dovecot (
       $directory = '/etc/dovecot'
       $packages  = [
         'dovecot-common',
+        'dovecot-core',
         'dovecot-imapd',
-        'dovecot-lmtpd'
-        'dovecot-mysql',
+        'dovecot-lmtpd',
         'dovecot-pop3d',
       ]
       $prefix    = 'dovecot'
