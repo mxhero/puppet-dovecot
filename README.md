@@ -35,3 +35,16 @@ dovecot::file { 'dovecot-sql.conf.ext':
     source => 'puppet:///modules/example/dovecot-sql.conf.ext',
 }
 ```
+
+## Configure SQL authentication
+
+```
+dovecot::sql { 'localhost':
+  db_driver => 'mysql',
+  db_host   => '172.0.0.1',
+  db_name   => 'dovecot',
+  db_pass   => 'dovecot',
+  db_user   => 'dovecot',
+}
+```
+
