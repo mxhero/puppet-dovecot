@@ -21,6 +21,7 @@ class { 'dovecot':
   auth_listener_userdb_mode  => '0660',
   auth_listener_userdb_group => 'vmail',
   auth_listener_postfix      => true,
+  ssl                        => true,
   ssl_cert                   => '/etc/pki/tls/certs/wildcard.example.com.crt',
   ssl_key                    => '/etc/pki/tls/private/wildcard.example.com.key',
   postmaster_address         => 'postmaster@example.com',
@@ -34,4 +35,3 @@ dovecot::file { 'dovecot-sql.conf.ext':
     source => 'puppet:///modules/example/dovecot-sql.conf.ext',
 }
 ```
-
