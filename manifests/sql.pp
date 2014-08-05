@@ -1,6 +1,6 @@
-# Define: dovecot::sql
+# Class: dovecot::sql
 #
-define dovecot::sql (
+class dovecot::sql (
   $db_driver   = 'mysql',
   $db_host     = 'localhost',
   $db_name     = 'dovecot',

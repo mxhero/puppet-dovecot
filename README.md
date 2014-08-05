@@ -39,7 +39,7 @@ dovecot::file { 'dovecot-sql.conf.ext':
 ## Configure SQL authentication
 
 ```
-dovecot::sql { 'localhost':
+class { 'dovecot::sql':
   db_driver => 'mysql',
   db_host   => '172.0.0.1',
   db_name   => 'dovecot',
