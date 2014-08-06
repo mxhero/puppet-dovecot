@@ -32,7 +32,11 @@ service imap-login {
   }
   inet_listener imaps {
     port = <%= @imaps_listen_port %>
-    #ssl = yes
+<% if @ssl -%>
+    ssl = yes
+<% else -%>
+    ssl = no
+<% end -%>
   }
 
   # Number of connections to handle before starting a new process. Typically
@@ -62,7 +66,11 @@ service pop3-login {
   }
   inet_listener pop3s {
     port = <%= @pop3s_listen_port %>
-    #ssl = yes
+<% if @ssl -%>
+    ssl = yes
+<% else -%>
+    ssl = no
+<% end -%>
   }
 <% if not @pop3_login_service_count.nil? -%>
   service_count = <%= @pop3_login_service_count %>
