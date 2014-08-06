@@ -16,7 +16,7 @@ class dovecot (
   $verbose_proctitle            = undef,
   # 10-auth.conf
   $auth_include                 = [ 'system' ],
-  $auth_mechanisms              = [ 'plain' ],
+  $auth_mechanisms              = [ 'login', 'plain' ],
   $auth_username_chars          = undef,
   $disable_plaintext_auth       = undef,
   # 10-logging.conf
