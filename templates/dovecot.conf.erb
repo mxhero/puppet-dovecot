@@ -22,7 +22,7 @@
 protocols = <%= @protocols %>
 <% end -%>
 
-# A comma separated list of IPs or hosts where to listen in for connections. 
+# A comma separated list of IPs or hosts where to listen in for connections.
 # "*" listens in all IPv4 interfaces, "::" listens in all IPv6 interfaces.
 # If you want to specify non-default ports or anything more complex,
 # edit conf.d/master.conf.
@@ -50,14 +50,14 @@ login_trusted_networks = <%= @login_trusted_networks %>
 <% end -%>
 
 # Sepace separated list of login access check sockets (e.g. tcpwrap)
-#login_access_sockets = 
+#login_access_sockets =
 
 # Show more verbose process titles (in ps). Currently shows user name and
 # IP address. Useful for seeing who are actually using the IMAP processes
 # (eg. shared mailboxes or if same uid is used for multiple accounts).
 #verbose_proctitle = no
 <% if @verbose_proctitle -%>
-verbose_proctitle = <%= @verbose_proctitle %>
+verbose_proctitle = yes
 <% end -%>
 
 # Should all processes be killed when Dovecot master process shuts down.
