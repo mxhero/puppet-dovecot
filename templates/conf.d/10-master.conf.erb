@@ -28,10 +28,10 @@ service imap-login {
   process_limit = <%= @imap_login_process_limit %>
 <% end -%>
   inet_listener imap {
-    #port = 143
+    port = <%= @imap_listen_port %>
   }
   inet_listener imaps {
-    #port = 993
+    port = <%= @imaps_listen_port %>
     #ssl = yes
   }
 
@@ -58,10 +58,10 @@ service imap-login {
 
 service pop3-login {
   inet_listener pop3 {
-    #port = 110
+    port = <%= @pop3_listen_port %>
   }
   inet_listener pop3s {
-    #port = 995
+    port = <%= @pop3s_listen_port %>
     #ssl = yes
   }
 <% if not @pop3_login_service_count.nil? -%>
