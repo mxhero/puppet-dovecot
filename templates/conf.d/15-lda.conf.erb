@@ -11,7 +11,7 @@ postmaster_address = <%= @postmaster_address %>
 
 # Hostname to use in various parts of sent mails, eg. in Message-Id.
 # Default is the system's real hostname.
-#hostname = 
+#hostname =
 <% if @hostname -%>
 hostname = <%= @hostname %>
 <% end -%>
@@ -35,20 +35,20 @@ hostname = <%= @hostname %>
 #recipient_delimiter = +
 
 # Header where the original recipient address (SMTP's RCPT TO: address) is taken
-# from if not available elsewhere. With dovecot-lda -a parameter overrides this. 
+# from if not available elsewhere. With dovecot-lda -a parameter overrides this.
 # A commonly used header for this is X-Original-To.
 #lda_original_recipient_header =
 
 # Should saving a mail to a nonexistent mailbox automatically create it?
 #lda_mailbox_autocreate = no
 <% if @lda_mailbox_autocreate -%>
-lda_mailbox_autocreate = <%= @lda_mailbox_autocreate %>
+lda_mailbox_autocreate = yes
 <% end -%>
 
 # Should automatically created mailboxes be also automatically subscribed?
 #lda_mailbox_autosubscribe = no
 <% if @lda_mailbox_autosubscribe -%>
-lda_mailbox_autosubscribe = <%= @lda_mailbox_autosubscribe %>
+lda_mailbox_autosubscribe = yes
 <% end -%>
 
 protocol lda {

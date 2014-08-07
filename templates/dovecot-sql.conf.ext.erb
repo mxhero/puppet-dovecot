@@ -1,0 +1,13 @@
+driver = <%= @db_driver %>
+connect = "host=<%= @db_host %> dbname=<%= @db_name %> user=<%= @db_user %> password=<%= @db_pass %>"
+default_pass_scheme = <%= @pass_scheme %>
+
+password_query = \
+  SELECT username, domain, password \
+  FROM <%= @db_table %> WHERE username = '%n' AND domain = '%d'
+
+user_query = \
+  SELECT home, uid, gid \
+  FROM <%= @db_table %> WHERE username = '%n' AND domain = '%d'
+
+iterate_query = SELECT username AS user FROM users
