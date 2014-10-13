@@ -8,4 +8,8 @@
 
 plugin {
   #setting_name = value
+<% if @fts_lucene -%>
+  fts = lucene
+  fts_lucene = whitespace_chars=@.
+<% end -%>
 }

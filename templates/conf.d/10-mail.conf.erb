@@ -117,7 +117,13 @@ namespace inbox {
 # can override these by returning uid or gid fields. You can use either numbers
 # or names. <doc/wiki/UserIds.txt>
 #mail_uid =
+<% if @mail_uid -%>
+mail_uid = <%= @mail_uid %>
+<% end -%>
 #mail_gid =
+<% if @mail_gid -%>
+mail_gid = <%= @mail_gid %>
+<% end -%>
 
 # Group to enable temporarily for privileged operations. Currently this is
 # used only with INBOX when either its initial creation or dotlocking fails.
