@@ -10,7 +10,11 @@ default_client_limit = <%= @default_client_limit %>
 # Default VSZ (virtual memory size) limit for service processes. This is mainly
 # intended to catch and kill processes that leak memory before they eat up
 # everything.
+<% if @default_vsz_limit -%>
+default_vsz_limit = <%= @default_vsz_limit %>
+<%- else -%>
 #default_vsz_limit = 256M
+<%- end %>
 
 # Login user is internally used by login processes. This is the most untrusted
 # user in Dovecot system. It shouldn't have access to anything at all.
