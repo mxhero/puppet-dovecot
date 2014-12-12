@@ -150,6 +150,7 @@ class dovecot (
         ensure    => running,
         hasstatus => true,
         require   => File["${directory}/dovecot.conf"],
+      }
     }
 
     # Main configuration directory
