@@ -93,7 +93,7 @@ class dovecot (
     $sieve_quota_max_scripts    = undef,
     $sieve_quota_max_storage    = undef,
     # 90-plugin.conf
-    $fts_lucene                 = undef,
+    $fts                        = undef,
     # 90-quota.conf
     $quota                      = undef,
     $quota_warnings             = [],
@@ -154,6 +154,7 @@ class dovecot (
         ensure    => running,
         hasstatus => true,
         require   => File["${directory}/dovecot.conf"],
+      }
     }
 
     # Main configuration directory
