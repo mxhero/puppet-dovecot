@@ -28,6 +28,8 @@ class dovecot (
     # 10-mail.conf
     $mail_fsync                 = undef,
     $mail_location              = undef,
+    $mail_uid                   = undef,
+    $mail_gid                   = undef,
     $mail_nfs_index             = undef,
     $mail_nfs_storage           = undef,
     $mail_privileged_group      = undef,
@@ -90,6 +92,8 @@ class dovecot (
     $sieve_max_script_size      = undef,
     $sieve_quota_max_scripts    = undef,
     $sieve_quota_max_storage    = undef,
+    # 90-plugin.conf
+    $fts                        = undef,
     # 90-quota.conf
     $quota                      = undef,
     $quota_warnings             = [],
@@ -150,6 +154,7 @@ class dovecot (
         ensure    => running,
         hasstatus => true,
         require   => File["${directory}/dovecot.conf"],
+      }
     }
 
     # Main configuration directory
@@ -190,6 +195,9 @@ class dovecot (
     file { "${directory}/conf.d/20-pop3.conf":
         content => template('dovecot/conf.d/20-pop3.conf.erb'),
     }
+    file { "${directory}/conf.d/20-managesieve.conf":
+        content => template('dovecot/conf.d/20-managesieve.conf.erb'),
+    }
     file { "${directory}/conf.d/15-lda.conf":
         content => template('dovecot/conf.d/15-lda.conf.erb'),
     }
@@ -198,6 +206,9 @@ class dovecot (
     }
     file { "${directory}/conf.d/90-quota.conf":
         content => template('dovecot/conf.d/90-quota.conf.erb'),
+    }
+    file { "${directory}/conf.d/90-plugin.conf":
+        content => template('dovecot/conf.d/90-plugin.conf.erb'),
     }
     file { "${directory}/conf.d/auth-passwdfile.conf.ext" :
         content => template('dovecot/conf.d/auth-passwdfile.conf.ext.erb'),

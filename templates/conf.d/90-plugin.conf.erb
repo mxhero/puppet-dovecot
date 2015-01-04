@@ -8,4 +8,13 @@
 
 plugin {
   #setting_name = value
+<% if @fts -%>
+  fts = <%= @fts.join(' ') %>
+<% if @fts.include? 'squat' -%>
+  fts_squat = partial=4 full=10
+<% end -%>
+<% if @fts.include? 'lucene' -%>
+  fts_lucene = whitespace_chars=@.
+<% end -%>
+<% end -%>
 }
