@@ -26,6 +26,7 @@ class dovecot (
     $auth_debug                 = undef,
     $mail_debug                 = undef,
     # 10-mail.conf
+    $mail_home                  = undef,
     $mail_fsync                 = undef,
     $mail_location              = undef,
     $mail_uid                   = undef,
@@ -65,6 +66,7 @@ class dovecot (
     $ssl_cert                   = '/etc/pki/dovecot/certs/dovecot.pem',
     $ssl_key                    = '/etc/pki/dovecot/private/dovecot.pem',
     $ssl_cipher_list            = undef,
+    $ssl_protocols              = undef,
     # 15-lda.conf
     $postmaster_address         = undef,
     $hostname                   = undef,
@@ -73,6 +75,8 @@ class dovecot (
     $lda_mailbox_autocreate     = undef,
     $lda_mailbox_autosubscribe  = undef,
     # 20-imap.conf
+    $imap_listen_port            = '*:143',
+    $imaps_listen_port           = '*:993',
     $imap_mail_plugins          = undef,
     $imap_client_workarounds    = undef,
     # 20-lmtp.conf
@@ -82,6 +86,8 @@ class dovecot (
     $pop3_mail_plugins          = undef,
     $pop3_uidl_format           = undef,
     $pop3_client_workarounds    = undef,
+    # 20-managesieve.conf
+    $manage_sieve               = undef,
     # 90-sieve.conf
     $sieve                      = '~/.dovecot.sieve',
     $sieve_after                = undef,
@@ -103,28 +109,46 @@ class dovecot (
     # auth-sql.conf.ext
     $auth_sql_userdb_static     = undef,
     $auth_sql_path              = '/etc/dovecot/dovecot-sql.conf.ext',
+    # auth-ldap.conf.ext
+    $auth_ldap_userdb_static    = undef,
     $auth_master_separator      = '*',
     $mail_max_userip_connections = 512,
     $first_valid_uid             = false,
     $last_valid_uid              = false,
 
     $manage_service              = true,
+    $custom_packages             = undef,
 ) {
+
+    if $custom_packages == undef {
+      case $::operatingsystem {
+        'RedHat', 'CentOS': {
+            $packages = 'dovecot'
+        }
+        /^(Debian|Ubuntu)$/:{
+            $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
+        }
+        'FreeBSD' : {
+          $packages  = 'mail/dovecot2'
+        }
+        default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported.")
+        }
+      }
+    } else {
+      $packages = $custom_packages
+    }
 
     case $::operatingsystem {
     'RedHat', 'CentOS': { 
         $directory = '/etc/dovecot'
-        $packages  = 'dovecot'
         $prefix    = 'dovecot'
     } 
     /^(Debian|Ubuntu)$/:{
         $directory = '/etc/dovecot'
-        $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
         $prefix    = 'dovecot'
     }
     'FreeBSD': {
         $directory = '/usr/local/etc/dovecot'
-        $packages  = 'mail/dovecot2'
         $prefix    = 'mail/dovecot2'
     }
     default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported") }
@@ -189,18 +213,25 @@ class dovecot (
     file { "${directory}/conf.d/10-ssl.conf":
         content => template('dovecot/conf.d/10-ssl.conf.erb'),
     }
+    file { "${directory}/conf.d/15-lda.conf":
+        content => template('dovecot/conf.d/15-lda.conf.erb'),
+    }
+    file { "${directory}/conf.d/15-mailboxes.conf":
+        content => template('dovecot/conf.d/15-mailboxes.conf.erb'),
+    }
     file { "${directory}/conf.d/20-imap.conf":
         content => template('dovecot/conf.d/20-imap.conf.erb'),
     }
     file { "${directory}/conf.d/20-pop3.conf":
         content => template('dovecot/conf.d/20-pop3.conf.erb'),
     }
-    file { "${directory}/conf.d/20-managesieve.conf":
-        content => template('dovecot/conf.d/20-managesieve.conf.erb'),
+    
+    if $manage_sieve {
+      file { "${directory}/conf.d/20-managesieve.conf":
+          content => template('dovecot/conf.d/20-managesieve.conf.erb'),
+      }
     }
-    file { "${directory}/conf.d/15-lda.conf":
-        content => template('dovecot/conf.d/15-lda.conf.erb'),
-    }
+    
     file { "${directory}/conf.d/90-sieve.conf":
         content => template('dovecot/conf.d/90-sieve.conf.erb'),
     }
@@ -215,6 +246,9 @@ class dovecot (
     }
     file { "${directory}/conf.d/auth-sql.conf.ext" :
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
+    }
+    file { '/etc/dovecot/conf.d/auth-ldap.conf.ext':
+        content => template('dovecot/conf.d/auth-ldap.conf.ext.erb'),
     }
 }
 

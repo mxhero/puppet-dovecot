@@ -47,3 +47,7 @@ ssl_key = <<%= @ssl_key %>
 <% if @ssl_cipher_list -%>
 ssl_cipher_list = <%= @ssl_cipher_list %>
 <% end -%>
+
+<% if @ssl_protocols -%>
+ssl_protocols = <%= @ssl_protocols %>
+<% end -%>
