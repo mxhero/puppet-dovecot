@@ -3,6 +3,7 @@
 ##
 
 protocol imap {
+  listen = <%= imap_listen_port %>
   # Maximum IMAP command line length. Some clients generate very long command
   # lines with huge mailboxes, so you may need to raise this if you get
   # "Too long argument" or "IMAP command line too large" errors often.
