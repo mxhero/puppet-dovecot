@@ -106,6 +106,8 @@ class dovecot (
     # auth-sql.conf.ext
     $auth_sql_userdb_static     = undef,
     $auth_sql_path              = '/etc/dovecot/dovecot-sql.conf.ext',
+    # auth-ldap.conf.ext
+    $auth_ldap_userdb_static    = undef,
     $auth_master_separator      = '*',
     $mail_max_userip_connections = 512,
     $first_valid_uid             = false,
@@ -218,6 +220,9 @@ class dovecot (
     }
     file { "${directory}/conf.d/auth-sql.conf.ext" :
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
+    }
+    file { '/etc/dovecot/conf.d/auth-ldap.conf.ext':
+        content => template('dovecot/conf.d/auth-ldap.conf.ext.erb'),
     }
 }
 
