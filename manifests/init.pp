@@ -86,6 +86,8 @@ class dovecot (
     $pop3_mail_plugins          = undef,
     $pop3_uidl_format           = undef,
     $pop3_client_workarounds    = undef,
+    # 20-managesieve.conf
+    $manage_sieve               = undef,
     # 90-sieve.conf
     $sieve                      = '~/.dovecot.sieve',
     $sieve_after                = undef,
@@ -223,9 +225,13 @@ class dovecot (
     file { "${directory}/conf.d/20-pop3.conf":
         content => template('dovecot/conf.d/20-pop3.conf.erb'),
     }
-    file { "${directory}/conf.d/20-managesieve.conf":
-        content => template('dovecot/conf.d/20-managesieve.conf.erb'),
+    
+    if $manage_sieve {
+      file { "${directory}/conf.d/20-managesieve.conf":
+          content => template('dovecot/conf.d/20-managesieve.conf.erb'),
+      }
     }
+    
     file { "${directory}/conf.d/90-sieve.conf":
         content => template('dovecot/conf.d/90-sieve.conf.erb'),
     }
