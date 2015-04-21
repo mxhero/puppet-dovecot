@@ -194,6 +194,12 @@ class dovecot (
     file { "${directory}/conf.d/10-ssl.conf":
         content => template('dovecot/conf.d/10-ssl.conf.erb'),
     }
+    file { "${directory}/conf.d/15-lda.conf":
+        content => template('dovecot/conf.d/15-lda.conf.erb'),
+    }
+    file { "${directory}/conf.d/15-mailboxes.conf":
+        content => template('dovecot/conf.d/15-mailboxes.conf.erb'),
+    }
     file { "${directory}/conf.d/20-imap.conf":
         content => template('dovecot/conf.d/20-imap.conf.erb'),
     }
@@ -202,9 +208,6 @@ class dovecot (
     }
     file { "${directory}/conf.d/20-managesieve.conf":
         content => template('dovecot/conf.d/20-managesieve.conf.erb'),
-    }
-    file { "${directory}/conf.d/15-lda.conf":
-        content => template('dovecot/conf.d/15-lda.conf.erb'),
     }
     file { "${directory}/conf.d/90-sieve.conf":
         content => template('dovecot/conf.d/90-sieve.conf.erb'),
