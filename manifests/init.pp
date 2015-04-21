@@ -26,6 +26,7 @@ class dovecot (
     $auth_debug                 = undef,
     $mail_debug                 = undef,
     # 10-mail.conf
+    $mail_home                  = undef,
     $mail_fsync                 = undef,
     $mail_location              = undef,
     $mail_uid                   = undef,

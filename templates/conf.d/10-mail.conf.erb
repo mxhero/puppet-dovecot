@@ -32,6 +32,10 @@
 mail_location = <%= @mail_location %>
 <% end -%>
 
+# mail_home = 
+<% if @mail_home -%>
+mail_home = <%= mail_home %>
+<% end -%>
 
 <% if @include_inbox_namespace -%>
 namespace inbox {
