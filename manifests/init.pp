@@ -75,6 +75,7 @@ class dovecot (
     $lda_mailbox_autosubscribe  = undef,
     # 20-imap.conf
     $imap_listen_port            = '*:143',
+    $imaps_listen_port           = '*:993',
     $imap_mail_plugins          = undef,
     $imap_client_workarounds    = undef,
     # 20-lmtp.conf
