@@ -115,22 +115,38 @@ class dovecot (
     $last_valid_uid              = false,
 
     $manage_service              = true,
+    $custom_packages             = undef,
 ) {
+
+    if $custom_packages == undef {
+      case $::operatingsystem {
+        'RedHat', 'CentOS': {
+            $packages = 'dovecot'
+        }
+        /^(Debian|Ubuntu)$/:{
+            $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
+        }
+        'FreeBSD' : {
+          $packages  = 'mail/dovecot2'
+        }
+        default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported.")
+        }
+      }
+    } else {
+      $packages = $custom_packages
+    }
 
     case $::operatingsystem {
     'RedHat', 'CentOS': { 
         $directory = '/etc/dovecot'
-        $packages  = 'dovecot'
         $prefix    = 'dovecot'
     } 
     /^(Debian|Ubuntu)$/:{
         $directory = '/etc/dovecot'
-        $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
         $prefix    = 'dovecot'
     }
     'FreeBSD': {
         $directory = '/usr/local/etc/dovecot'
-        $packages  = 'mail/dovecot2'
         $prefix    = 'mail/dovecot2'
     }
     default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported") }
