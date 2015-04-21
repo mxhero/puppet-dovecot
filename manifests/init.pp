@@ -41,7 +41,6 @@ class dovecot (
     # 10-master.conf
     $default_process_limit      = undef,
     $default_client_limit       = undef,
-    $imap_listen_port            = '*:143',
     $imap_login_process_limit   = undef,
     $imap_login_client_limit    = undef,
     $imap_login_service_count   = undef,
@@ -75,6 +74,7 @@ class dovecot (
     $lda_mailbox_autocreate     = undef,
     $lda_mailbox_autosubscribe  = undef,
     # 20-imap.conf
+    $imap_listen_port            = '*:143',
     $imap_mail_plugins          = undef,
     $imap_client_workarounds    = undef,
     # 20-lmtp.conf
