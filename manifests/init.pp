@@ -67,6 +67,7 @@ class dovecot (
     $ssl_key                    = '/etc/pki/dovecot/private/dovecot.pem',
     $ssl_cipher_list            = undef,
     $ssl_protocols              = undef,
+    $ssl_dh_parameters_length   = undef,
     # 15-lda.conf
     $postmaster_address         = undef,
     $hostname                   = undef,
