@@ -119,6 +119,7 @@ class dovecot (
 
     $manage_service              = true,
     $custom_packages             = undef,
+    $ensure_packages             = 'installed',
 ) {
 
     if $custom_packages == undef {
@@ -172,7 +173,7 @@ class dovecot (
     dovecot::plugin { $plugins: before => Package[$packages], prefix => $prefix }
 
     # Main package and service it provides
-    package { $packages: ensure => installed }
+    package { $packages: ensure => $ensure_packages }
     if $manage_service {
       service { 'dovecot':
         enable    => true,
