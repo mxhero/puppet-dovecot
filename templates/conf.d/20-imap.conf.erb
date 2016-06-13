@@ -3,9 +3,9 @@
 ##
 
 protocol imap {
-  listen = <%= imap_listen_port %>
+  listen = <%= @imap_listen_port %>
   <% if @ssl =~ /yes/ %>
-  ssl_listen = <%= imaps_listen_port %>
+  ssl_listen = <%= @imaps_listen_port %>
   <% end %>
   
   # Maximum IMAP command line length. Some clients generate very long command
