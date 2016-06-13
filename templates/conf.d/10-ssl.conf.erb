@@ -42,6 +42,11 @@ ssl_key = <<%= @ssl_key %>
 # entirely.
 #ssl_parameters_regenerate = 168
 
+# dovecot 2.2.7+, you can set the bit length of DHE
+<% if @ssl_dh_parameters_length -%>
+ssl_dh_parameters_length = <%= @ssl_dh_parameters_length -%>
+<% end -%>
+
 # SSL ciphers to use
 #ssl_cipher_list = ALL:!LOW:!SSLv2:!EXP:!aNULL
 <% if @ssl_cipher_list -%>
