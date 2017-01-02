@@ -53,11 +53,9 @@ imap_client_workarounds = <%= @imap_client_workarounds %>
 
 protocol imap {
   listen = <%= @imap_listen_port %>
-  <% if @ssl =~ /yes/ %>
-  ssl_listen = <%= @imaps_listen_port %>
+  <%- if @ssl =~ /yes|required/ -%>
+  ssl_listen = <%= @imaps_listen_port -%>
   <% end %>
-
-
   # Maximum number of IMAP connections allowed for a user from each IP address.
   # NOTE: The username is compared case-sensitively.
   #mail_max_userip_connections = 10
@@ -68,9 +66,5 @@ protocol imap {
 <% if @imap_mail_plugins -%>
   mail_plugins = <%= @imap_mail_plugins %>
 <% end -%>
-<% if @quota_enabled -%>
-  mail_plugins = $mail_plugins imap_quota
-<% end -%> 
-
 
 }

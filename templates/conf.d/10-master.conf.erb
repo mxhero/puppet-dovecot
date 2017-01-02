@@ -12,7 +12,7 @@ default_client_limit = <%= @default_client_limit %>
 # everything.
 #default_vsz_limit = 256M
 <% if @default_vsz_limit -%>
-default_vsz_limit = <%= @default_vsz_limit %>
+default_vsz_limit = <%= @default_vsz_limit -%>
 <%- end %>
 
 # Login user is internally used by login processes. This is the most untrusted

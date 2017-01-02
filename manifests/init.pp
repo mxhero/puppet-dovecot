@@ -37,17 +37,17 @@ class dovecot (
     $mail_plugins               = undef,
     $mmap_disable               = undef,
     $dotlock_use_excl           = undef,
-    $include_inbox_namespace	= undef,
+    $include_inbox_namespace    = undef,
     # 10-master.conf
     $default_process_limit      = undef,
     $default_client_limit       = undef,
-    $auth_master_separator       = undef,
     $auth_listener_userdb_mode   = undef,
     $auth_listener_userdb_user   = undef,
     $auth_listener_userdb_group  = undef,
     $auth_listener_postfix       = false,
     $auth_listener_postfix_mode  = undef,
     $auth_listener_postfix_user  = undef,
+    $auth_listener_postfix_group = undef,
     $imap_login_process_limit   = undef,
     $imap_login_client_limit    = undef,
     $imap_login_service_count   = undef,
@@ -56,13 +56,6 @@ class dovecot (
     $pop3_login_service_count   = undef,
     $pop3_login_process_min_avail = undef,
     $default_vsz_limit          = undef,
-    $auth_listener_userdb_mode  = undef,
-    $auth_listener_userdb_user  = undef,
-    $auth_listener_userdb_group = undef,
-    $auth_listener_postfix      = false,
-    $auth_listener_postfix_mode = '0666',
-    $auth_listener_postfix_user = undef,
-    $auth_listener_postfix_group = undef,
     $auth_listener_default_user = undef,
     $imaplogin_imap_port         = 0,
     $imaplogin_imaps_port        = 0,
@@ -165,7 +158,7 @@ class dovecot (
     validate_string($mail_location)
     validate_string($mail_uid)
     validate_string($mail_gid)
-    validate_string($mail_mail_plugins)
+    validate_string($mail_plugins)
     # 10-master.conf
     validate_string($default_process_limit)
     validate_string($default_client_limit)
@@ -193,6 +186,7 @@ class dovecot (
     validate_string($postmaster_address)
     validate_string($hostname)
     validate_string($lda_mail_plugins)
+    validate_string($imap_mail_plugins)
     # 20-lmtp.conf
     validate_bool($lmtp_save_to_detail_mailbox)
     validate_string($lmtp_mail_plugins)
@@ -356,6 +350,7 @@ class dovecot (
     } else {
       file { "${directory}/conf.d/99-replicator.conf":
           ensure => absent
+      }
     }
 
     file { "${directory}/conf.d/auth-passwdfile.conf.ext" :

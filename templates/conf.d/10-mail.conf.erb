@@ -34,7 +34,7 @@ mail_location = <%= @mail_location -%>
 
 # mail_home =
 <% if @mail_home -%>
-mail_home = <%= @mail_home %>
+mail_home = <%= @mail_home -%>
 <% end -%>
 
 <% if @include_inbox_namespace -%>
@@ -232,14 +232,14 @@ mail_nfs_index = <%= @mail_nfs_index %>
 # to make sure that users can't log in as daemons or other system users.
 # Note that denying root logins is hardcoded to dovecot binary and can't
 # be done even if first_valid_uid is set to 0.
-<%- if @first_valid_uid %>
-first_valid_uid = <%= @first_valid_uid %>
-<% else %>
+<%- if @first_valid_uid -%>
+first_valid_uid = <%= @first_valid_uid -%>
+<% else -%>
 #first_valid_uid = 500
 <% end -%>
-<%- if @last_valid_uid %>
-last_valid_uid = <%= @last_valid_uid %>
-<% else %>
+<%- if @last_valid_uid -%>
+last_valid_uid = <%= @last_valid_uid -%>
+<% else -%>
 #last_valid_uid = 0
 <% end %>
 
@@ -282,7 +282,7 @@ last_valid_uid = <%= @last_valid_uid %>
 # IMAP, LDA, etc. are added to this list in their own .conf files.
 #mail_plugins = 
 <% if @mail_plugins -%>
-mail_plugins = <%= @mail_plugins %><% if @quota_enabled -%> quota<% end -%>
+mail_plugins = <%= @mail_plugins %>
 <% end -%>
 
 ##

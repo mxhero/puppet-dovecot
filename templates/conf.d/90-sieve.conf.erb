@@ -94,7 +94,7 @@ plugin {
   # is also used by Dovecot's LMTP service.
   #recipient_delimiter = +
  <% if @recipient_delimiter -%>
-  recipient_delimiter = <%= @recipient_delimiter -%>
+ recipient_delimiter = <%= @recipient_delimiter -%>
  <% end %>
 
   # The maximum size of a Sieve script. The compiler will refuse to compile any
@@ -102,44 +102,42 @@ plugin {
   # enforced.
   #sieve_max_script_size = 1M
   <% if @sieve_max_script_size -%>
-  sieve_max_script_size = <%= @sieve_max_script_size %>
-  <% end -%>
+  sieve_max_script_size = <%= @sieve_max_script_size -%>
+  <%- end %>
 
   # The maximum number of actions that can be performed during a single script
   # execution. If set to 0, no limit on the total number of actions is enforced.
   #sieve_max_actions = 32
   <% if @sieve_max_actions -%>
-  sieve_max_actions = <%= @sieve_max_actions %>
-  <% end -%>
+  sieve_max_actions = <%= @sieve_max_actions -%>
+  <%- end %>
 
   # The maximum number of redirect actions that can be performed during a single
   # script execution. If set to 0, no redirect actions are allowed.
   #sieve_max_redirects = 4
   <% if @sieve_max_redirects -%>
-  sieve_max_redirects = <%= @sieve_max_redirects %>
-  <% end -%>
+  sieve_max_redirects = <%= @sieve_max_redirects -%>
+  <%- end %>
 
   # The maximum number of personal Sieve scripts a single user can have. If set
   # to 0, no limit on the number of scripts is enforced.
   # (Currently only relevant for ManageSieve)
   #sieve_quota_max_scripts = 0
   <% if @sieve_quota_max_scripts -%>
-  sieve_quota_max_scripts = <%= @sieve_quota_max_scripts %>
-  <% end -%>
+  sieve_quota_max_scripts = <%= @sieve_quota_max_scripts -%>
+  <%- end %>
 
   # The maximum amount of disk storage a single user's scripts may occupy. If
   # set to 0, no limit on the used amount of disk storage is enforced.
   # (Currently only relevant for ManageSieve)
   #sieve_quota_max_storage = 0
   <% if @sieve_quota_max_storage-%>
-  sieve_quota_max_storage = <%= @sieve_quota_max_storage %>
-  <% end -%>
-
+  sieve_quota_max_storage = <%= @sieve_quota_max_storage -%>
+  <% end %>
   <% if @sieve_before -%>
-  sieve_before = <%= @sieve_before %>
-  <% end -%>
-
+  sieve_before = <%= @sieve_before -%>
+  <%- end %>
   <% if @sieve_after -%>
-  sieve_after = <%= @sieve_after %>
-  <% end -%>
+  sieve_after = <%= @sieve_after -%>
+  <% end %>
 }
