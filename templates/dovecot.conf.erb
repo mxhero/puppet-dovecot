@@ -1,6 +1,6 @@
 ## Dovecot configuration file
 
-# If you're in a hurry, see http://wiki.dovecot.org/QuickConfiguration
+# If you're in a hurry, see http://wiki2.dovecot.org/QuickConfiguration
 
 # "doveconf -n" command gives a clean output of the changed settings. Use it
 # instead of copy&pasting files when posting to the Dovecot mailing list.
@@ -34,6 +34,12 @@ listen = <%= @listen %>
 # Base directory where to store runtime data.
 #base_dir = /var/run/dovecot/
 
+# Name of this instance. In multi-instance setup doveadm and other commands
+# can use -i <instance_name> to select which instance is used (an alternative
+# to -c <config_path>). The instance name is also added to Dovecot processes
+# in ps output.
+#instance_name = dovecot
+
 # Greeting message for clients.
 #login_greeting = Dovecot ready.
 <% if @login_greeting -%>
@@ -51,6 +57,11 @@ login_trusted_networks = <%= @login_trusted_networks %>
 
 # Sepace separated list of login access check sockets (e.g. tcpwrap)
 #login_access_sockets = 
+
+# With proxy_maybe=yes if proxy destination matches any of these IPs, don't do
+# proxying. This isn't necessary normally, but may be useful if the destination
+# IP is e.g. a load balancer's IP.
+#auth_proxy_self =
 
 # Show more verbose process titles (in ps). Currently shows user name and
 # IP address. Useful for seeing who are actually using the IMAP processes
@@ -74,6 +85,11 @@ shutdown_clients = <%= @shutdown_clients %>
 #doveadm_worker_count = 0
 # UNIX socket or host:port used for connecting to doveadm server
 #doveadm_socket_path = doveadm-server
+
+# Space separated list of environment variables that are preserved on Dovecot
+# startup and passed down to all of its child processes. You can also give
+# key=value pairs to always set specific settings.
+#import_environment = TZ
 
 ##
 ## Dictionary server settings

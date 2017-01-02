@@ -7,8 +7,8 @@
 # matches the local IP (ie. you're connecting from the same computer), the
 # connection is considered secure and plaintext authentication is allowed.
 #disable_plaintext_auth = yes
-<% if @disable_plaintext_auth -%>
-disable_plaintext_auth = <%= @disable_plaintext_auth %>
+<% if defined?(@disable_plaintext_auth) -%>
+disable_plaintext_auth = <%= @disable_plaintext_auth ? 'yes' : 'no' %>
 <% end -%>
 
 # Authentication cache size (e.g. 10M). 0 means it's disabled. Note that
@@ -60,7 +60,10 @@ auth_username_chars = <%= @auth_username_chars %>
 # support for it), you can specify the separator character here. The format
 # is then <username><separator><master username>. UW-IMAP uses "*" as the
 # separator, so that could be a good choice.
+#auth_master_user_separator =
+<% if @auth_master_user_separator -%>
 auth_master_user_separator = <%= @auth_master_separator %>
+<% end -%>
 
 # Username to use for users logging in with ANONYMOUS SASL mechanism
 #auth_anonymous_username = anonymous
@@ -71,11 +74,13 @@ auth_master_user_separator = <%= @auth_master_separator %>
 #auth_worker_max_count = 30
 
 # Host name to use in GSSAPI principal names. The default is to use the
-# name returned by gethostname(). Use "$ALL" to allow all keytab entries.
+# name returned by gethostname(). Use "$ALL" (with quotes) to allow all keytab
+# entries.
 #auth_gssapi_hostname =
 
-# Kerberos keytab to use for the GSSAPI mechanism. Will use the system 
-# default (usually /etc/krb5.keytab) if not specified.
+# Kerberos keytab to use for the GSSAPI mechanism. Will use the system
+# default (usually /etc/krb5.keytab) if not specified. You may need to change
+# the auth service to run as root to be able to read this file.
 #auth_krb5_keytab = 
 
 # Do NTLM and GSS-SPNEGO authentication using Samba's winbind daemon and
@@ -122,9 +127,11 @@ auth_mechanisms = <%= @auth_mechanisms %>
 #!include auth-deny.conf.ext
 #!include auth-master.conf.ext
 
-<% @auth_include.each do |auth| -%>
+<% if @auth_include -%>
+<%- @auth_include.each do |auth| -%>
 !include auth-<%= auth %>.conf.ext
 <% end -%>
+<%- end -%>
 #!include auth-system.conf.ext
 #!include auth-sql.conf.ext
 #!include auth-ldap.conf.ext

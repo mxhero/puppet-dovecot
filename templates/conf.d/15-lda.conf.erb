@@ -23,6 +23,9 @@ hostname = <%= @hostname %>
 # Binary to use for sending mails.
 #sendmail_path = /usr/sbin/sendmail
 
+# If non-empty, send mails via this SMTP host[:port] instead of sendmail.
+#submission_host =
+
 # Subject: header to use for rejection mails. You can use the same variables
 # as for rejection_reason below.
 #rejection_subject = Rejected: %s
@@ -33,6 +36,9 @@ hostname = <%= @hostname %>
 
 # Delimiter character between local-part and detail in email address.
 #recipient_delimiter = +
+<% if @recipient_delimiter -%>
+recipient_delimiter = <%= @recipient_delimiter -%>
+<% end %>
 
 # Header where the original recipient address (SMTP's RCPT TO: address) is taken
 # from if not available elsewhere. With dovecot-lda -a parameter overrides this. 
@@ -55,7 +61,7 @@ protocol lda {
   # Space separated list of plugins to load (default is global mail_plugins).
   #mail_plugins = $mail_plugins
 <% if @lda_mail_plugins -%>
-  mail_plugins  = <%= @lda_mail_plugins %>
+  mail_plugins = <%= @lda_mail_plugins %><% if @acl_enabled -%> acl<% end %>
 <% end -%>
 <% if @lda_mail_location -%>
   mail_location = <%= @lda_mail_location %>

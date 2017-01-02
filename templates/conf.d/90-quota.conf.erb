@@ -57,6 +57,16 @@ plugin {
 #    user = vmail
 #  }
 #}
+<% if @quota_enabled -%>
+service quota-warning {
+  executable = script /usr/local/bin/quota-warning.sh
+  # use some unprivileged user for executing the quota warnings
+  user = dovecot
+  unix_listener quota-warning {
+    user = vmail
+  }
+}
+<%- end %>
 
 ##
 ## Quota backends
@@ -86,4 +96,17 @@ plugin {
 <% if @quota -%>
   quota = <%= @quota %>
 <% end -%>
+<% if @quota_enabled -%>
+
+  quota_rule = *:storage=6GB
+  # 10% of 1GB = 100MB
+  quota_rule2 = Trash:storage=+10%%
+  # 20% of 1GB = 200MB
+  quota_rule3 = Spam:storage=+20%%
+<%- end %>
+
+  # LDA/LMTP allows saving the last mail to bring user from under quota to
+  # over quota, if the quota doesn't grow too high. Default is to allow as
+  # long as quota will stay under 10% above the limit. Also allowed e.g. 10M.
+  #quota_grace = 10%%
 }
