@@ -32,6 +32,7 @@ auth_verbose = <%= @auth_verbose %>
 # In case of password mismatches, log the attempted password. Valid values are
 # no, plain and sha1. sha1 can be useful for detecting brute force password
 # attempts vs. user simply trying the same password over and over again.
+# You can also truncate the value to n chars by appending ":n" (e.g. sha1:6).
 #auth_verbose_passwords = no
 
 # Even more verbose logging for debugging purposes. Shows for example SQL
@@ -61,6 +62,8 @@ plugin {
   #mail_log_events = delete undelete expunge copy mailbox_delete mailbox_rename
   # Group events within a transaction to one line.
   #mail_log_group_events = no
+  # Group events within a transaction to one line.
+  #mail_log_group_events = no
   # Available fields: uid, box, msgid, from, subject, size, vsize, flags
   # size and vsize are available only for expunge and copy events.
   #mail_log_fields = uid box msgid size
@@ -74,8 +77,9 @@ plugin {
 # format.
 #log_timestamp = "%b %d %H:%M:%S "
 <% if @log_timestamp -%>
-log_timestamp = <%= @log_timestamp %>
+log_timestamp = <%= @log_timestamp -%>
 <% end -%>
+
 # Space-separated list of elements we want to log. The elements which have
 # a non-empty variable value are joined together to form a comma-separated
 # string.

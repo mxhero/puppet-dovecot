@@ -1,0 +1,27 @@
+
+service replicator {
+  process_min_avail = 1
+  unix_listener replicator-doveadm {
+    mode = 0600
+    user = vmail
+    group = vmail
+  }
+}
+
+dsync_remote_cmd = <%= @options_plugins['replication']['dsync_remote_cmd'] %>
+
+plugin {
+  mail_replica = <%= @options_plugins['replication']['mail_replica'] %>
+  replication_full_sync_interval = <%= @options_plugins['replication']['replication_full_sync_interval'] %>
+  replication_dsync_parameters = <%= @options_plugins['replication']['replication_dsync_parameters'] %>
+}
+
+service aggregator {
+  fifo_listener replication-notify-fifo {
+    user = vmail
+  }
+  unix_listener replication-notify {
+    user = vmail
+  }
+}
+

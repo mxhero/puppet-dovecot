@@ -4,6 +4,9 @@
 
 # Uncomment to enable managesieve protocol:
 #protocols = $protocols sieve
+<% if @managesieve_service -%>
+protocols = $protocols sieve
+<% end %>
 
 # Service definitions
 
@@ -11,6 +14,11 @@ service managesieve-login {
   #inet_listener sieve {
   #  port = 4190
   #}
+<% if @managesieve_service -%>
+  inet_listener sieve {
+    port = 4190
+  }
+<% end %>
 
   #inet_listener sieve_deprecated {
   #  port = 2000
@@ -20,6 +28,9 @@ service managesieve-login {
   # the only useful values are 0 (unlimited) or 1. 1 is more secure, but 0
   # is faster. <doc/wiki/LoginProcess.txt>
   #service_count = 1
+<% if @managesieve_service_count -%>
+  service_count = <%= @managesieve_service_count -%>
+<% end %>
 
   # Number of processes to always keep waiting for more connections.
   #process_min_avail = 0

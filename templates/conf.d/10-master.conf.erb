@@ -10,10 +10,9 @@ default_client_limit = <%= @default_client_limit %>
 # Default VSZ (virtual memory size) limit for service processes. This is mainly
 # intended to catch and kill processes that leak memory before they eat up
 # everything.
+#default_vsz_limit = 256M
 <% if @default_vsz_limit -%>
 default_vsz_limit = <%= @default_vsz_limit %>
-<%- else -%>
-#default_vsz_limit = 256M
 <%- end %>
 
 # Login user is internally used by login processes. This is the most untrusted
@@ -33,10 +32,19 @@ service imap-login {
 <% end -%>
   inet_listener imap {
     #port = 143
+<% if @imaplogin_imap_port and @imaplogin_imap_port > 0 -%>
+    port = <%= @imaplogin_imap_port %>
+<% end -%>
   }
   inet_listener imaps {
     #port = 993
+<% if @imaplogin_imaps_port and @imaplogin_imaps_port > 0 -%>
+    port = <%= @imaplogin_imaps_port %>
+<% end -%>
     #ssl = yes
+<% if defined?(@imaplogin_imaps_ssl) -%>
+    ssl = <%= @imaplogin_imaps_ssl ? 'yes' : 'no' %>
+<% end -%>
   }
 
   # Number of connections to handle before starting a new process. Typically
@@ -54,7 +62,7 @@ service imap-login {
 <% end -%>
 
   # If you set service_count=0, you probably need to grow this.
-  #vsz_limit = 64M
+  #vsz_limit = $default_vsz_limit
 <% if @imap_login_vsz_limit -%>
   vsz_limit = <%= @imap_login_vsz_limit %>
 <% end -%>
@@ -77,8 +85,19 @@ service pop3-login {
 }
 
 service lmtp {
-  unix_listener lmtp {
+  unix_listener <% if @lmtp_unix_listener -%><%= @lmtp_unix_listener %><% else %>lmtp<% end -%> {
     #mode = 0666
+<% if @lmtp_unix_listener_mode -%>
+    mode = <%= @lmtp_unix_listener_mode %>
+<% end -%>
+    #user = 
+<% if @lmtp_unix_listener_user -%>
+    user = <%= @lmtp_unix_listener_user %>
+<% end -%>
+    #group = 
+<% if @lmtp_unix_listener_group -%>
+    group = <%= @lmtp_unix_listener_group %>
+<% end -%>
   }
 
   # Create inet listener only if you can't use the above UNIX socket
@@ -105,7 +124,7 @@ service lmtp {
 service imap {
   # Most of the memory goes to mmap()ing files. You may need to increase this
   # limit if you have huge mailboxes.
-  #vsz_limit = 256M
+  #vsz_limit = $default_vsz_limit
 
   # Max. number of IMAP processes (connections)
   #process_limit = 1024
@@ -118,10 +137,18 @@ service pop3 {
 
 service auth {
   # auth_socket_path points to this userdb socket by default. It's typically
-  # used by dovecot-lda, doveadm, possibly imap process, etc. Its default
-  # permissions make it readable only by root, but you may need to relax these
-  # permissions. Users that have access to this socket are able to get a list
-  # of all usernames and get results of everyone's userdb lookups.
+  # used by dovecot-lda, doveadm, possibly imap process, etc. Users that have
+  # full permissions to this socket are able to get a list of all usernames and
+  # get the results of everyone's userdb lookups.
+  #
+  # The default 0666 mode allows anyone to connect to the socket, but the
+  # userdb lookups will succeed only if the userdb returns an "uid" field that
+  # matches the caller process's UID. Also if caller's uid or gid matches the
+  # socket's uid or gid the lookup succeeds. Anything else causes a failure.
+  #
+  # To give the caller full permissions to lookup all users, set the mode to
+  # something else than 0666 and Dovecot lets the kernel enforce the
+  # permissions (e.g. 0777 allows everyone full permissions).
   unix_listener auth-userdb {
     #mode = 0600
 <% if @auth_listener_userdb_mode -%>
@@ -143,7 +170,11 @@ service auth {
   #}
 <% if @auth_listener_postfix -%>
   unix_listener /var/spool/postfix/private/auth {
+<% if @auth_listener_postfix_mode -%>
     mode = <%= @auth_listener_postfix_mode %>
+<% else -%>
+    mode = 0666
+<% end -%>
 <% if @auth_listener_postfix_user -%>
     user = <%= @auth_listener_postfix_user %>
 <% end -%>

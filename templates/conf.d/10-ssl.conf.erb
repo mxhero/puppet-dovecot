@@ -25,8 +25,11 @@ ssl_key = <<%= @ssl_key %>
 
 # PEM encoded trusted certificate authority. Set this only if you intend to use
 # ssl_verify_client_cert=yes. The file should contain the CA certificate(s)
-# followed by the matching CRL(s). (e.g. ssl_ca = </etc/pki/dovecot/certs/ca.pem)
+# followed by the matching CRL(s). (e.g. ssl_ca = </etc/ssl/certs/ca.pem)
 #ssl_ca = 
+
+# Require that CRL check succeeds for client certificates.
+#ssl_require_crl = yes
 
 # Request client to send a certificate. If you also want to require it, set
 # auth_ssl_require_client_cert=yes in auth section.
@@ -56,3 +59,6 @@ ssl_cipher_list = <%= @ssl_cipher_list %>
 <% if @ssl_protocols -%>
 ssl_protocols = <%= @ssl_protocols %>
 <% end -%>
+
+# SSL crypto device to use, for valid values run "openssl engine"
+#ssl_crypto_device =

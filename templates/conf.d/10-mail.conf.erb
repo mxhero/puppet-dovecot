@@ -27,21 +27,21 @@
 #
 # <doc/wiki/MailLocation.txt>
 #
-#mail_location = 
+#mail_location = mbox:~/mail:INBOX=/var/mail/%u
 <% if @mail_location -%>
-mail_location = <%= @mail_location %>
-<% end -%>
+mail_location = <%= @mail_location -%>
+<% end %>
 
-# mail_home = 
+# mail_home =
 <% if @mail_home -%>
-mail_home = <%= mail_home %>
+mail_home = <%= @mail_home %>
 <% end -%>
 
 <% if @include_inbox_namespace -%>
 namespace inbox {
   inbox = yes
 }
-<% end -%>
+<% end %>
 
 # If you need to set multiple mailbox locations or want to change default
 # namespace settings, you can do it by defining namespace sections.
@@ -77,7 +77,7 @@ namespace inbox {
 
   # There can be only one INBOX, and this setting defines which namespace
   # has it.
-  #inbox = no
+  #inbox = yes
 
   # If namespace is hidden, it's not advertised to clients via NAMESPACE
   # extension. You'll most likely also want to set list=no. This is mostly
@@ -116,6 +116,36 @@ namespace inbox {
   # List the shared/ namespace only if there are visible shared mailboxes.
   #list = children
 #}
+<% if @shared_mailboxes -%>
+namespace {
+  type = shared
+  separator = /
+
+  # Mailboxes are visible under "shared/user@domain/"
+  # %%n, %%d and %%u are expanded to the destination user.
+  prefix = shared/%%u/
+
+  # Mail location for other users' mailboxes. Note that %variables and ~/
+  # expands to the logged in user's data. %%n, %%d, %%u and %%h expand to the
+  # destination user's data.
+  #location = maildir:%%h/Maildir:INDEX=~/Maildir/shared/%%u
+  #location = maildir:%%h:CONTROL=/home/vmail/%d/%n/root/%%u:INDEXPVT=/home/vmail/%d/%n/root/%%u:LAYOUT=fs
+  location = maildir:%%h:INDEXPVT=/home/vmail/%d/%n/root/%%u:LAYOUT=fs
+
+  # Use the default namespace for saving subscriptions.
+  subscriptions = yes
+
+  # List the shared/ namespace only if there are visible shared mailboxes.
+  #list = children
+  list = yes
+}
+<%- end %>
+
+# Should shared INBOX be visible as "shared/user" or "shared/user/INBOX"?
+#mail_shared_explicit_inbox = yes
+<% if @shared_mailboxes -%>
+mail_shared_explicit_inbox = no
+<%- end %>
 
 # System user and group used to access mails. If you use multiple, userdb
 # can override these by returning uid or gid fields. You can use either numbers
@@ -246,13 +276,13 @@ last_valid_uid = <%= @last_valid_uid %>
 #auth_socket_path = /var/run/dovecot/auth-userdb
 
 # Directory where to look up mail plugins.
-#mail_plugin_dir = /usr/lib/dovecot
+#mail_plugin_dir = /usr/lib/dovecot/modules
 
 # Space separated list of plugins to load for all services. Plugins specific to
 # IMAP, LDA, etc. are added to this list in their own .conf files.
 #mail_plugins = 
 <% if @mail_plugins -%>
-mail_plugins = <%= @mail_plugins %>
+mail_plugins = <%= @mail_plugins %><% if @quota_enabled -%> quota<% end -%>
 <% end -%>
 
 ##
@@ -277,6 +307,14 @@ mail_plugins = <%= @mail_plugins %>
 # the extra CRs wrong and cause problems.
 #mail_save_crlf = no
 
+# Max number of mails to keep open and prefetch to memory. This only works with
+# some mailbox formats and/or operating systems.
+#mail_prefetch_count = 0
+
+# How often to scan for stale temporary files and delete them (0 = never).
+# These should exist only after Dovecot dies in the middle of saving mails.
+#mail_temp_scan_interval = 1w
+
 ##
 ## Maildir-specific settings
 ##
@@ -295,6 +333,12 @@ mail_plugins = <%= @mail_plugins %>
 # Assume Dovecot is the only MUA accessing Maildir: Scan cur/ directory only
 # when its mtime changes unexpectedly or when we can't find the mail otherwise.
 #maildir_very_dirty_syncs = no
+
+# If enabled, Dovecot doesn't use the S=<size> in the Maildir filenames for
+# getting the mail's physical size, except when recalculating Maildir++ quota.
+# This can be useful in systems where a lot of the Maildir filenames have a
+# broken size. The performance hit for enabling this is very small.
+#maildir_broken_filename_sizes = no
 
 ##
 ## mbox-specific settings
@@ -349,6 +393,12 @@ mbox_write_locks = fcntl
 # If mbox size is smaller than this (e.g. 100k), don't write index files.
 # If an index file already exists it's still read, just not updated.
 #mbox_min_index_size = 0
+
+# Mail header selection algorithm to use for MD5 POP3 UIDLs when
+# pop3_uidl_format=%m. For backwards compatibility we use apop3d inspired
+# algorithm, but it fails if the first Received: header isn't unique in all
+# mails. An alternative algorithm is "all" that selects all headers.
+#mbox_md5 = apop3d
 
 ##
 ## mdbox-specific settings
