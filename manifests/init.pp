@@ -89,7 +89,7 @@ class dovecot (
     $imap_client_workarounds    = undef,
     # 20-lmtp.conf
     $lmtp_mail_plugins          = undef,
-    $lmtp_save_to_detail_mailbox = undef,
+    $lmtp_save_to_detail_mailbox = false,
     # 20-pop3.conf
     $pop3_mail_plugins          = undef,
     $pop3_uidl_format           = undef,
