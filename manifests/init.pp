@@ -83,6 +83,7 @@ class dovecot (
     $lda_mailbox_autocreate     = undef,
     $lda_mailbox_autosubscribe  = undef,
     # 20-imap.conf
+    $write_imap_conf            = true,
     $imap_listen_port            = '*:143',
     $imaps_listen_port           = '*:993',
     $imap_mail_plugins          = undef,
@@ -187,6 +188,8 @@ class dovecot (
     validate_string($hostname)
     validate_string($lda_mail_plugins)
     validate_string($imap_mail_plugins)
+    # 20-imap.conf
+    validate_bool($write_imap_conf)
     # 20-lmtp.conf
     validate_bool($lmtp_save_to_detail_mailbox)
     validate_string($lmtp_mail_plugins)
@@ -314,8 +317,14 @@ class dovecot (
     file { "${directory}/conf.d/15-mailboxes.conf":
         content => template('dovecot/conf.d/15-mailboxes.conf.erb'),
     }
-    file { "${directory}/conf.d/20-imap.conf":
-        content => template('dovecot/conf.d/20-imap.conf.erb'),
+    if $write_imap_conf {
+      file { "${directory}/conf.d/20-imap.conf":
+          content => template('dovecot/conf.d/20-imap.conf.erb'),
+      }
+    } else {
+      file { "${directory}/conf.d/20-imap.conf":
+        ensure => absent,
+      }
     }
     file { "${directory}/conf.d/20-lmtp.conf":
         content => template('dovecot/conf.d/20-lmtp.conf.erb'),
