@@ -15,6 +15,7 @@ ssl = <%= @ssl %>
 <% if @ssl =~ /yes|required/ -%>
 ssl_cert = <<%= @ssl_cert %>
 ssl_key = <<%= @ssl_key %>
+ssl_dh = <<%= @ssl_dh %>
 <% end -%>
 
 # If key file is password protected, give the password here. Alternatively
