@@ -57,8 +57,8 @@ class dovecot (
     $pop3_login_process_min_avail = undef,
     $default_vsz_limit          = undef,
     $auth_listener_default_user = undef,
-    $imaplogin_imap_port         = 0,
-    $imaplogin_imaps_port        = 0,
+    $imaplogin_imap_port         = 143,
+    $imaplogin_imaps_port        = 993,
     $imaplogin_imaps_ssl         = false,
     $lmtp_unix_listener          = undef,
     $lmtp_unix_listener_mode     = undef,
@@ -72,6 +72,7 @@ class dovecot (
     $ssl                        = undef,
     $ssl_cert                   = '/etc/pki/dovecot/certs/dovecot.pem',
     $ssl_key                    = '/etc/pki/dovecot/private/dovecot.pem',
+    $ssl_dh                     = '/etc/pki/dovecot/dh.pem',
     $ssl_cipher_list            = undef,
     $ssl_protocols              = undef,
     $ssl_dh_parameters_length   = undef,
@@ -180,7 +181,7 @@ class dovecot (
     # 10-ssl.conf
     validate_string($ssl)
     validate_string($ssl_cert)
-    validate_string($ssl_key)
+    validate_string($ssl_dh)
     validate_string($ssl_key)
     # 15-lda.conf
     validate_string($postmaster_address)
